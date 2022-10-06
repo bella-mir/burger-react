@@ -1,0 +1,32 @@
+.section {
+  width: 100%;
+  height: 70vh;
+}
+
+.inner {
+  height: 55vh;
+  overflow-y: scroll;
+}
+
+.count {
+  display: flex;
+  flex-direction: row;
+  height: 64px;
+  align-items: center;
+  justify-content: right;
+}
+
+.sum {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.element {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 13px;
+  max-width: 536px;
+}

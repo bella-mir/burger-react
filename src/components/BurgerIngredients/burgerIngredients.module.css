@@ -1,0 +1,19 @@
+.section {
+  width: 100%;
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.tabs {
+  display: flex;
+}
+
+.groups {
+  height: 60vh;
+  overflow-y: scroll;
+}

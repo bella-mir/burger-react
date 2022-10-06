@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1c1c21;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.menuElement {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  gap: 9px;
+}

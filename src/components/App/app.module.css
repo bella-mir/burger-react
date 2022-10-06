@@ -1,0 +1,21 @@
+.page {
+  max-width: 1150px;
+  min-height: 100vh;
+  font-family: "JetBrains Mono", "Arial", sans-serif;
+  color: #f2f2f3;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  align-items: center;
+  margin: 0 auto;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
