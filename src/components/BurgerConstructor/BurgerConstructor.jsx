@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   ConstructorElement,
   Button,
@@ -8,6 +9,7 @@ import {
 import { data } from "../utils/data";
 import classnames from "classnames";
 import styles from "./burgerConstructor.module.css";
+import { IngredientsPropTypes } from "../utils/propTypes";
 
 export const BurgerConstructor = () => {
   const upperPart = data[0];
@@ -60,4 +62,8 @@ export const BurgerConstructor = () => {
       </section>
     </section>
   );
+};
+
+BurgerConstructor.propTypes = {
+  thread: PropTypes.arrayOf(IngredientsPropTypes),
 };

@@ -1,9 +1,10 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIngredient } from "./components/BurgerIngredient";
-import classnames from "classnames";
 import styles from "./burgerIngredients.module.css";
 import { data } from "../utils/data";
+import { IngredientsPropTypes } from "../utils/propTypes";
 
 export const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState("one");
@@ -50,4 +51,8 @@ export const BurgerIngredients = () => {
       </div>
     </section>
   );
+};
+
+BurgerIngredients.propTypes = {
+  thread: PropTypes.arrayOf(IngredientsPropTypes)
 };
