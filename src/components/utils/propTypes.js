@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 
 export const IngredientsPropTypes = PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    user: PropTypes.string.isRequired,
-    replyTo: PropTypes.number,
-    text: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired
   });
-  

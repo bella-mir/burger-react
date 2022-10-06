@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
   ConstructorElement,
   Button,
@@ -9,12 +8,14 @@ import {
 import { data } from "../utils/data";
 import classnames from "classnames";
 import styles from "./burgerConstructor.module.css";
-import { IngredientsPropTypes } from "../utils/propTypes";
 
 export const BurgerConstructor = () => {
-  const upperPart = data[0];
-  const lowerPart = data[data.length - 1];
-  const innerParts = data.slice(1, -1);
+  const selectedBun = data.filter((element) => element.type === "bun")[
+    Math.floor(Math.random() * 2)
+  ];
+  const all = data.filter(
+    (element) => element.type === "main" || element.type === "sauce"
+  );
 
   const sum = data.reduce((accumulator, element) => {
     return accumulator + element.price;
@@ -22,17 +23,17 @@ export const BurgerConstructor = () => {
 
   return (
     <section className={classnames(styles.section, "pt-25")}>
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+      <div className={styles.main}>
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={upperPart.name}
-          price={upperPart.price}
-          thumbnail={upperPart.image_mobile}
+          text={`${selectedBun.name} (верх)`}
+          price={selectedBun.price}
+          thumbnail={selectedBun.image_mobile}
         />
         <div className={styles.inner}>
-          {innerParts.map((element) => (
-            <div className={classnames(styles.element, "pb-4")}>
+          {all.map((element) => (
+            <div className={classnames(styles.element, "pb-4")} key={element.id}>
               <DragIcon />
               <ConstructorElement
                 text={element.name}
@@ -46,9 +47,9 @@ export const BurgerConstructor = () => {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={lowerPart.name}
-          price={lowerPart.price}
-          thumbnail={lowerPart.image_mobile}
+          text={`${selectedBun.name} (низ)`}
+          price={selectedBun.price}
+          thumbnail={selectedBun.image_mobile}
         />
       </div>
       <section className={classnames(styles.count, "pt-10")}>
@@ -62,8 +63,4 @@ export const BurgerConstructor = () => {
       </section>
     </section>
   );
-};
-
-BurgerConstructor.propTypes = {
-  thread: PropTypes.arrayOf(IngredientsPropTypes),
 };
