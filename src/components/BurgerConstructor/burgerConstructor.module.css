@@ -1,0 +1,47 @@
+.section {
+  max-width: 640px;
+}
+
+.inner {
+  height: 42vh;
+  overflow-y: scroll;
+}
+
+.inner::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2f2f37;
+}
+
+.inner::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+}
+
+.count {
+  display: flex;
+  flex-direction: row;
+  height: 64px;
+  align-items: center;
+  justify-content: right;
+}
+
+.sum {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.element {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 13px;
+  max-width: 536px;
+}
+
+
+.main{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
