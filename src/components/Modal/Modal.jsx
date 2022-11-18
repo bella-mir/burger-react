@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import * as ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import classnames from "classnames";
@@ -8,9 +8,22 @@ import PropTypes from "prop-types";
 const modalRoot = document.getElementById("root");
 
 export const Modal = ({ header, setIsOpen, children }) => {
+  const escFunction = useCallback(
+    (event) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    },
+    [setIsOpen]
+  );
+
   return ReactDOM.createPortal(
-    <ModalOverlay>
-      <div className={classnames(styles.modal)}>
+    <ModalOverlay setIsOpen={setIsOpen}>
+      <div
+        className={classnames(styles.modal)}
+        onKeyDown={escFunction}
+        tabIndex="0"
+      >
         <div className="pl-10 pr-10 pb-15 pt-10">
           <div className={styles.header}>
             <p className="text text_type_main-large">{header}</p>

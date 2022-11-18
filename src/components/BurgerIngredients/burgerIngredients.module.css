@@ -4,6 +4,8 @@
 
 .tabs {
   display: flex;
+  width: 632px;
+  justify-content: center;
 }
 
 .groups {

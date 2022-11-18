@@ -34,7 +34,7 @@ export const BurgerConstructor = ({ burgerData }) => {
 
   return (
     <>
-      <section className={classnames(styles.section, "pt-25")}>
+      <section className={classnames(styles.section, "pt-25 pr-2")}>
         {burgerData && (
           <>
             <div className={styles.main}>
