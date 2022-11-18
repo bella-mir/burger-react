@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerIngredients.module.css";
-import { data } from "../utils/data";
 import classnames from "classnames";
 import { BurgerIngredientsGroup } from "./components/BurgerIngredientsGroup";
 
-export const BurgerIngredients = () => {
+export const BurgerIngredients = ({ burgerData }) => {
   const [type, setType] = React.useState("bun");
+  const [buns, setBuns] = React.useState();
+  const [main, setMain] = React.useState();
+  const [sauces, setSauces] = React.useState();
 
-  const buns = data.filter((element) => element.type === "bun");
-  const main = data.filter((element) => element.type === "main");
-  const sauces = data.filter((element) => element.type === "sauce");
+  useEffect(() => {
+    if (!burgerData) {
+      return;
+    }
+    setBuns(burgerData.filter((element) => element.type === "bun"));
+    setMain(burgerData.filter((element) => element.type === "main"));
+    setSauces(burgerData.filter((element) => element.type === "sauce"));
+  }, [burgerData]);
 
   return (
     <section className={classnames(styles.section, "mr-10")}>
@@ -28,11 +35,14 @@ export const BurgerIngredients = () => {
           </Tab>
         </div>
       </div>
-      <div className={styles.groups}>
-        <BurgerIngredientsGroup title="Булки" data={buns} />
-        <BurgerIngredientsGroup title="Соусы" data={sauces} />
-        <BurgerIngredientsGroup title="Начинки" data={main} />
-      </div>
+
+      {buns && sauces && main && (
+        <div className={styles.groups}>
+          <BurgerIngredientsGroup title="Булки" data={buns} />
+          <BurgerIngredientsGroup title="Соусы" data={sauces} />
+          <BurgerIngredientsGroup title="Начинки" data={main} />
+        </div>
+      )}
     </section>
   );
 };

@@ -10,9 +10,13 @@ import styles from "./burgerIngerdient.module.css";
 
 export const BurgerIngredient = (props) => {
   return (
-    <div className={classnames(styles.card, "pl-4 pb-6")}>
-      <div  className={styles.counter}>
-      <Counter count={1} size="default"  />
+    <div
+      className={classnames(styles.card, "pl-4 pb-6")}
+      onClick={props.onClick}
+      key={props.id}
+    >
+      <div className={styles.counter}>
+        <Counter count={1} size="default" />
       </div>
       <img src={props.image_large} alt={props.name} className={styles.image} />
       <div className={classnames(styles.row, "pt-1 pb-1")}>
@@ -28,7 +32,6 @@ export const BurgerIngredient = (props) => {
   );
 };
 
-
 BurgerIngredient.propTypes = {
-  ingredients: PropTypes.arrayOf(IngredientsPropTypes).isRequired,
+  props: PropTypes.objectOf(IngredientsPropTypes).isRequired,
 };
