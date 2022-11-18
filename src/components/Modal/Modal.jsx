@@ -23,6 +23,7 @@ export const Modal = ({ header, setIsOpen, children }) => {
         className={classnames(styles.modal)}
         onKeyDown={escFunction}
         tabIndex="0"
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="pl-10 pr-10 pb-15 pt-10">
           <div className={styles.header}>
