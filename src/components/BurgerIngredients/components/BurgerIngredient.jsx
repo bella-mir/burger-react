@@ -4,8 +4,7 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classnames from "classnames";
-import { IngredientsPropTypes } from "../../utils/propTypes";
-import PropTypes from "prop-types";
+import { IngredientPropTypes } from "../../utils/propTypes";
 import styles from "./burgerIngerdient.module.css";
 
 export const BurgerIngredient = (props) => {
@@ -37,5 +36,5 @@ export const BurgerIngredient = (props) => {
 };
 
 BurgerIngredient.propTypes = {
-  props: PropTypes.shape(IngredientsPropTypes).isRequired,
+  props: IngredientPropTypes,
 };

@@ -1,6 +1,5 @@
 import React from "react";
-import { IngredientsPropTypes } from "../utils/propTypes";
-import PropTypes from "prop-types";
+import { IngredientPropTypes } from "../utils/propTypes";
 import styles from "./ingredient-details.module.css";
 import classnames from "classnames";
 
@@ -39,9 +38,6 @@ export const IngredientDetails = ({
   );
 };
 
-
 IngredientDetails.propTypes = {
-  props: PropTypes.shape(IngredientsPropTypes).isRequired,
+  props: IngredientPropTypes,
 };
-
-

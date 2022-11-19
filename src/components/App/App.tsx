@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { AppHeader } from "../AppHeader/AppHeader";
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor";
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients";
-import { url } from "./app-constants";
-import { checkResponse } from "./app-utils";
+import { API_URL } from "./app-constants";
+import { checkResponse } from "../utils/checkResponse";
 
 import styles from "./app.module.css";
 
@@ -11,7 +11,7 @@ function App() {
   const [burgerData, setBurgerData] = useState();
 
   useEffect(() => {
-    fetch(`${url}/ingredients`)
+    fetch(`${API_URL}/ingredients`)
       .then(checkResponse)
       .then((data) => setBurgerData(data.data));
   }, []);
