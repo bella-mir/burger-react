@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { AppHeader } from "../AppHeader/AppHeader";
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor";
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients";
+import { url } from "./app-constants";
+import { checkResponse } from "./app-utils";
 
 import styles from "./app.module.css";
 
@@ -9,8 +11,8 @@ function App() {
   const [burgerData, setBurgerData] = useState();
 
   useEffect(() => {
-    fetch("https://norma.nomoreparties.space/api/ingredients")
-      .then((response) => response.json())
+    fetch(`${url}/ingredients`)
+      .then(checkResponse)
       .then((data) => setBurgerData(data.data));
   }, []);
 

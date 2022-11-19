@@ -41,7 +41,7 @@ export const IngredientDetails = ({
 
 
 IngredientDetails.propTypes = {
-  props: PropTypes.objectOf(IngredientsPropTypes).isRequired,
+  props: PropTypes.shape(IngredientsPropTypes).isRequired,
 };
 
 

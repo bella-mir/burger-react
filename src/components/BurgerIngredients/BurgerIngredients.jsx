@@ -6,9 +6,9 @@ import { BurgerIngredientsGroup } from "./components/BurgerIngredientsGroup";
 
 export const BurgerIngredients = ({ burgerData }) => {
   const [type, setType] = React.useState("bun");
-  const [buns, setBuns] = React.useState();
-  const [main, setMain] = React.useState();
-  const [sauces, setSauces] = React.useState();
+  const [buns, setBuns] = React.useState(null);
+  const [main, setMain] = React.useState(null);
+  const [sauces, setSauces] = React.useState(null);
 
   useEffect(() => {
     if (!burgerData) {

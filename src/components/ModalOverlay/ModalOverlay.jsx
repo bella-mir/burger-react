@@ -1,7 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import styles from "./modal-overlay.module.css";
 
-export const ModalOverlay = ({ setIsOpen, children }) => {
+export const ModalOverlay = ({ setIsOpen }) => {
   const escFunction = useCallback(
     (event) => {
       if (event.key === "Escape") {
@@ -10,6 +10,14 @@ export const ModalOverlay = ({ setIsOpen, children }) => {
     },
     [setIsOpen]
   );
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction);
+    };
+  }, [escFunction]);
 
   return (
     <div
@@ -20,9 +28,7 @@ export const ModalOverlay = ({ setIsOpen, children }) => {
       }}
       onKeyDown={escFunction}
       tabIndex="0"
-    >
-      {children}
-    </div>
+    ></div>
   );
 };
 

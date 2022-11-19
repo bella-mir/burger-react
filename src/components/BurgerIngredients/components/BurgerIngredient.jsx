@@ -18,20 +18,24 @@ export const BurgerIngredient = (props) => {
       <div className={styles.counter}>
         <Counter count={1} size="default" />
       </div>
-      <img src={props.image_large} alt={props.name} className={styles.image} />
+      <img
+        src={props.ingredient.image_large}
+        alt={props.ingredient.name}
+        className={styles.image}
+      />
       <div className={classnames(styles.row, "pt-1 pb-1")}>
         <span className="text text_type_digits-default pr-2">
-          {props.price}
+          {props.ingredient.price}
         </span>
         <CurrencyIcon type="primary" />
       </div>
       <h4 className={classnames(styles.title, "text text_type_main-default")}>
-        {props.name}
+        {props.ingredient.name}
       </h4>
     </div>
   );
 };
 
 BurgerIngredient.propTypes = {
-  props: PropTypes.objectOf(IngredientsPropTypes).isRequired,
+  props: PropTypes.shape(IngredientsPropTypes).isRequired,
 };
