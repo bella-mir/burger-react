@@ -15,6 +15,11 @@
   text-align: center;
 }
 
+.card:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
 .image {
   width: 240px;
   height: 120px;
