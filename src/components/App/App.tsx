@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { AppHeader } from "../AppHeader/AppHeader";
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor";
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients";
-import { API_URL } from "./app-constants";
-import { checkResponse } from "../utils/checkResponse";
+import { API_URL } from "../utils/app-constants";
+import { checkResponse } from "../utils/app-utils";
 
 import styles from "./app.module.css";
 

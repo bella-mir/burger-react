@@ -2,7 +2,7 @@ import React from "react";
 import * as ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import classnames from "classnames";
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
 import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("root");

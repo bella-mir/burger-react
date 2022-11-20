@@ -7,7 +7,7 @@ import { IngredientDetails } from "../../IngredientDetails/IngredientDetails";
 
 import styles from "./burgerIngredientsGroup.module.css";
 
-export const BurgerIngredientsGroup = ({title, data}) => {
+export const BurgerIngredientsGroup = ({ title, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [ingredient, setIngredient] = useState(null);
 
@@ -28,7 +28,7 @@ export const BurgerIngredientsGroup = ({title, data}) => {
       </div>
       {isOpen && (
         <Modal setIsOpen={setIsOpen} header={"Детали ингредиента"}>
-          <IngredientDetails {...ingredient} />
+          <IngredientDetails ingredient={ingredient} />
         </Modal>
       )}
     </>
@@ -37,5 +37,5 @@ export const BurgerIngredientsGroup = ({title, data}) => {
 
 BurgerIngredientsGroup.propTypes = {
   title: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(IngredientPropTypes),
+  data: PropTypes.arrayOf(IngredientPropTypes).isRequired,
 };

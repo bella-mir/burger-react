@@ -5,6 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import classnames from "classnames";
 import { IngredientPropTypes } from "../../utils/propTypes";
+import PropTypes from "prop-types";
 import styles from "./burgerIngerdient.module.css";
 
 export const BurgerIngredient = (props) => {
@@ -36,5 +37,6 @@ export const BurgerIngredient = (props) => {
 };
 
 BurgerIngredient.propTypes = {
-  props: IngredientPropTypes,
+  ingredient: IngredientPropTypes.isRequired,
+  onClick: PropTypes.func.isRequired,
 };

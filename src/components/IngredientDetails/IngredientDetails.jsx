@@ -3,18 +3,15 @@ import { IngredientPropTypes } from "../utils/propTypes";
 import styles from "./ingredient-details.module.css";
 import classnames from "classnames";
 
-export const IngredientDetails = ({
-  image,
-  name,
-  calories,
-  proteins,
-  fat,
-  carbohydrates,
-}) => {
+export const IngredientDetails = ({ ingredient }) => {
   return (
     <>
-      <img src={image} alt={name} className={styles.image} />
-      <p className="text text_type_main-medium">{name}</p>
+      <img
+        src={ingredient.image}
+        alt={ingredient.name}
+        className={styles.image}
+      />
+      <p className="text text_type_main-medium">{ingredient.name}</p>
       <div
         className={classnames(
           styles.composition,
@@ -22,16 +19,16 @@ export const IngredientDetails = ({
         )}
       >
         <div className={styles.element}>
-          Калории, ккал <span>{calories}</span>
+          Калории, ккал <span>{ingredient.calories}</span>
         </div>
         <div className={styles.element}>
-          Белки, г <span>{proteins}</span>
+          Белки, г <span>{ingredient.proteins}</span>
         </div>
         <div className={styles.element}>
-          Жиры, г <span>{fat}</span>
+          Жиры, г <span>{ingredient.fat}</span>
         </div>
         <div className={styles.element}>
-          Углеводы, г <span>{carbohydrates}</span>
+          Углеводы, г <span>{ingredient.carbohydrates}</span>
         </div>
       </div>
     </>
@@ -39,5 +36,5 @@ export const IngredientDetails = ({
 };
 
 IngredientDetails.propTypes = {
-  props: IngredientPropTypes,
+  ingredient: IngredientPropTypes.isRequired,
 };

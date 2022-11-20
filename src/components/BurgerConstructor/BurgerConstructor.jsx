@@ -7,6 +7,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../Modal/Modal";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
+import { IngredientPropTypes } from "../utils/propTypes";
+import PropTypes from "prop-types";
 import classnames from "classnames";
 import styles from "./burgerConstructor.module.css";
 
@@ -94,4 +96,8 @@ export const BurgerConstructor = ({ burgerData }) => {
       )}
     </>
   );
+};
+
+BurgerConstructor.propTypes = {
+  burgerData: PropTypes.arrayOf(IngredientPropTypes),
 };

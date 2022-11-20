@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { IngredientPropTypes } from "../utils/propTypes";
+import PropTypes from "prop-types";
 import styles from "./burgerIngredients.module.css";
 import classnames from "classnames";
 import { BurgerIngredientsGroup } from "./components/BurgerIngredientsGroup";
@@ -45,4 +47,8 @@ export const BurgerIngredients = ({ burgerData }) => {
       )}
     </section>
   );
+};
+
+BurgerIngredients.propTypes = {
+  burgerData: PropTypes.arrayOf(IngredientPropTypes),
 };

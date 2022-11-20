@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from "react";
+import PropTypes from "prop-types";
 import styles from "./modal-overlay.module.css";
 
 export const ModalOverlay = ({ setIsOpen }) => {
@@ -32,4 +33,6 @@ export const ModalOverlay = ({ setIsOpen }) => {
   );
 };
 
-export default ModalOverlay;
+ModalOverlay.propTypes = {
+  setIsOpen: PropTypes.func.isRequired,
+};
