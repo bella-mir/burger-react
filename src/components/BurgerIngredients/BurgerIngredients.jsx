@@ -1,16 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientPropTypes } from "../utils/propTypes";
 import PropTypes from "prop-types";
 import styles from "./burgerIngredients.module.css";
 import classnames from "classnames";
 import { BurgerIngredientsGroup } from "./components/BurgerIngredientsGroup";
+import { BurgerDataContext } from "../context/burger-data-context";
 
-export const BurgerIngredients = ({ burgerData }) => {
+export const BurgerIngredients = () => {
   const [type, setType] = React.useState("bun");
   const [buns, setBuns] = React.useState(null);
   const [main, setMain] = React.useState(null);
   const [sauces, setSauces] = React.useState(null);
+  const burgerData = useContext(BurgerDataContext);
 
   useEffect(() => {
     if (!burgerData) {
