@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../Modal/Modal";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
-import { BurgerDataContext } from "../utils/burger-data-context";
+import { BurgerDataContext } from "../context/burger-data-context";
 import { IngredientPropTypes } from "../utils/propTypes";
 import PropTypes from "prop-types";
 import classnames from "classnames";

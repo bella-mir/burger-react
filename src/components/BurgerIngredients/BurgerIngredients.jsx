@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import styles from "./burgerIngredients.module.css";
 import classnames from "classnames";
 import { BurgerIngredientsGroup } from "./components/BurgerIngredientsGroup";
-import { BurgerDataContext } from "../utils/burger-data-context";
+import { BurgerDataContext } from "../context/burger-data-context";
 
 export const BurgerIngredients = () => {
   const [type, setType] = React.useState("bun");
