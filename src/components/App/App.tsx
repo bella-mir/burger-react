@@ -2,28 +2,27 @@ import React, { useEffect, useState } from "react";
 import { AppHeader } from "../AppHeader/AppHeader";
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor";
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients";
-import { API_URL } from "../utils/app-constants";
-import { checkResponse } from "../utils/app-utils";
-
+import { BurgerDataContext } from "../utils/burger-data-context";
 import styles from "./app.module.css";
+import { getIngerdients } from "../utils/api";
 
 function App() {
   const [burgerData, setBurgerData] = useState();
 
   useEffect(() => {
-    fetch(`${API_URL}/ingredients`)
-      .then(checkResponse)
-      .then((data) => setBurgerData(data.data));
+    getIngerdients().then((data) => setBurgerData(data.data));
   }, []);
 
   return (
-    <div className={styles.page}>
-      <AppHeader />
-      <main className={styles.main}>
-        <BurgerIngredients burgerData={burgerData} />
-        <BurgerConstructor burgerData={burgerData} />
-      </main>
-    </div>
+    <BurgerDataContext.Provider value={burgerData}>
+      <div className={styles.page}>
+        <AppHeader />
+        <main className={styles.main}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </main>
+      </div>
+    </BurgerDataContext.Provider>
   );
 }
 

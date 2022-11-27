@@ -1,12 +1,13 @@
 import React from "react";
-
 import styles from "./order-details.module.css";
+import PropTypes from "prop-types";
 import classnames from "classnames";
 
-export const OrderDetails = () => {
+export const OrderDetails = ({ orderNum }) => {
+
   return (
     <>
-      <p className="text text_type_digits-large">034536</p>
+      <p className="text text_type_digits-large">{orderNum}</p>
       <p className="text text_type_main-medium pt-8">идентификатор заказа</p>
       <div
         className={classnames(
@@ -20,4 +21,8 @@ export const OrderDetails = () => {
       </p>
     </>
   );
+};
+
+OrderDetails.propTypes = {
+  orderNum: PropTypes.number,
 };

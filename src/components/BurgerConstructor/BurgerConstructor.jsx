@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   ConstructorElement,
   Button,
@@ -7,32 +7,46 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../Modal/Modal";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
+import { BurgerDataContext } from "../utils/burger-data-context";
 import { IngredientPropTypes } from "../utils/propTypes";
 import PropTypes from "prop-types";
 import classnames from "classnames";
+import { getMultipleRandom } from "../utils/data-utils";
 import styles from "./burgerConstructor.module.css";
+import { orderCheckout } from "../utils/api";
 
-export const BurgerConstructor = ({ burgerData }) => {
+export const BurgerConstructor = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {}, [burgerData]);
+  const [orderNum, setOrderNum] = useState(null);
+  const burgerData = useContext(BurgerDataContext);
 
   const selectedBun = burgerData
     ? burgerData.filter((element) => element.type === "bun")[
         Math.floor(Math.random() * 2)
       ]
     : null;
+
   const all = burgerData
     ? burgerData.filter(
         (element) => element.type === "main" || element.type === "sauce"
       )
     : null;
 
-  const sum = burgerData
-    ? burgerData.reduce((accumulator, element) => {
+  const randomFill = all && getMultipleRandom(all, 7);
+  const randomFillIds =
+    randomFill && randomFill.map((ingredient) => ingredient._id);
+
+  const sum = randomFill
+    ? randomFill.reduce((accumulator, element) => {
         return accumulator + element.price;
-      }, 0)
+      }, 0) +
+      selectedBun.price * 2
     : null;
+
+  const handleClick = () => {
+    setIsOpen(true);
+    orderCheckout(randomFillIds).then((data) => setOrderNum(data.order.number));
+  };
 
   return (
     <>
@@ -48,7 +62,7 @@ export const BurgerConstructor = ({ burgerData }) => {
                 thumbnail={selectedBun.image_mobile}
               />
               <div className={styles.inner}>
-                {all.map((element) => (
+                {randomFill.map((element) => (
                   <div
                     className={classnames(styles.element, "pb-4")}
                     key={element._id}
@@ -81,7 +95,7 @@ export const BurgerConstructor = ({ burgerData }) => {
                 type="primary"
                 size="large"
                 htmlType="button"
-                onClick={() => setIsOpen(true)}
+                onClick={handleClick}
               >
                 Оформить заказ
               </Button>
@@ -91,7 +105,7 @@ export const BurgerConstructor = ({ burgerData }) => {
       </section>
       {isOpen && (
         <Modal setIsOpen={setIsOpen} header={""}>
-          <OrderDetails />
+          <OrderDetails orderNum={orderNum} />
         </Modal>
       )}
     </>
