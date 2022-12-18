@@ -1,7 +1,7 @@
 import { API_URL } from "./app-constants";
 import { checkResponse } from "./app-utils";
 
-export const getIngerdients = () => {
+export const loadIngerdients = () => {
   return fetch(`${API_URL}/ingredients`).then(checkResponse);
 };
 

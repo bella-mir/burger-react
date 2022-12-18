@@ -1,24 +1,28 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
   ConstructorElement,
   Button,
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+
 import { Modal } from "../Modal/Modal";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
-import { BurgerDataContext } from "../context/burger-data-context";
 import { IngredientPropTypes } from "../utils/propTypes";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { getMultipleRandom } from "../utils/data-utils";
 import styles from "./burgerConstructor.module.css";
 import { orderCheckout } from "../utils/api";
+import { useSelector } from "react-redux";
+import { getIngredientsInConstructor } from "../../services/selectors/ingredients";
 
 export const BurgerConstructor = () => {
+  const burgerData = useSelector(getIngredientsInConstructor);
+
   const [isOpen, setIsOpen] = useState(false);
+
   const [orderNum, setOrderNum] = useState(null);
-  const burgerData = useContext(BurgerDataContext);
 
   const selectedBun = burgerData
     ? burgerData.filter((element) => element.type === "bun")[
@@ -36,12 +40,14 @@ export const BurgerConstructor = () => {
   const randomFillIds =
     randomFill && randomFill.map((ingredient) => ingredient._id);
 
-  const sum = randomFill
-    ? randomFill.reduce((accumulator, element) => {
-        return accumulator + element.price;
-      }, 0) +
-      selectedBun.price * 2
-    : null;
+  // const sum = randomFill
+  //   ? randomFill.reduce((accumulator, element) => {
+  //       return accumulator + element.price;
+  //     }, 0) +
+  //     selectedBun.price * 2
+  //   : null;
+
+  const sum = 0;
 
   const handleClick = () => {
     setIsOpen(true);
@@ -51,7 +57,7 @@ export const BurgerConstructor = () => {
   return (
     <>
       <section className={classnames(styles.section, "pt-25 pr-2")}>
-        {burgerData && (
+        {burgerData.length > 1 && (
           <>
             <div className={styles.main}>
               <ConstructorElement
