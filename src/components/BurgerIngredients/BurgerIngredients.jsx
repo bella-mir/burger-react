@@ -31,8 +31,8 @@ export const BurgerIngredients = () => {
               refBuns.current.clientHeight -
               refSauces.current.clientHeight <
             0
-          ? "main"
-          : "sauce";
+          ? "sauce"
+          : "main";
     }
     setType(currentTab);
   };
@@ -65,10 +65,10 @@ export const BurgerIngredients = () => {
           <Tab value="bun" active={type === "bun"} onClick={setTab}>
             Булки
           </Tab>
-          <Tab value="main" active={type === "main"} onClick={setTab}>
+          <Tab value="sauce" active={type === "sauce"} onClick={setTab}>
             Соусы
           </Tab>
-          <Tab value="sauce" active={type === "sauce"} onClick={setTab}>
+          <Tab value="main" active={type === "main"} onClick={setTab}>
             Начинки
           </Tab>
         </div>
