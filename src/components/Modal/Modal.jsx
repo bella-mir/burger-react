@@ -1,6 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { selectIngredient } from "../../services/actions/ingredients";
 import * as ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import classnames from "classnames";
@@ -10,7 +8,6 @@ import PropTypes from "prop-types";
 const modalRoot = document.getElementById("root");
 
 export const Modal = ({ header, setIsOpen, children }) => {
-  const dispatch = useDispatch();
   return ReactDOM.createPortal(
     <>
       <ModalOverlay setIsOpen={setIsOpen} />
@@ -25,7 +22,6 @@ export const Modal = ({ header, setIsOpen, children }) => {
             <button
               className={styles.close}
               onClick={() => {
-                dispatch(selectIngredient(""));
                 setIsOpen(false);
               }}
             ></button>

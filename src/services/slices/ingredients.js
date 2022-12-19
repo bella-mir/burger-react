@@ -4,15 +4,17 @@ import {
   selectIngredient,
   addToConstructor,
   deleteFromConstructor,
+  reorderIngredients,
 } from "../actions/ingredients";
-import { INGREDIENTS_STATE_KEY } from "../ingredients-constants";
+import { INGREDIENTS_STATE_KEY } from "../services-constants";
 
 const initialState = {
   data: [],
   status: "",
   error: "",
   selectedIngredient: {},
-  ingredientsInConstructor: [],
+  ingredientsInConstructor: { bun: {}, ingredients: [] },
+  order: {},
 };
 
 export const fetchIngredients = createAsyncThunk(
@@ -43,16 +45,23 @@ export const ingredientsSlice = createSlice({
       state.selectedIngredient = action.payload;
     });
     builder.addCase(addToConstructor, (state, action) => {
-      state.ingredientsInConstructor = state.ingredientsInConstructor.push(
-        action.payload
-      );
+      action.payload.type === "bun"
+        ? (state.ingredientsInConstructor.bun = action.payload)
+        : state.ingredientsInConstructor.ingredients.push(action.payload);
     });
     builder.addCase(deleteFromConstructor, (state, action) => {
-      state.ingredientsInConstructor = state.ingredientsInConstructor.filter(
-        (item) => {
-          return item !== action.payload;
-        }
-      );
+      action.payload.type === "bun"
+        ? (state.ingredientsInConstructor.bun = "")
+        : (state.ingredientsInConstructor.ingredients =
+            state.ingredientsInConstructor.ingredients.filter(
+              (ingredient) => ingredient.elementId !== action.payload
+            ));
+    });
+    builder.addCase(reorderIngredients, (state, action) => {
+      const newOrderedData = state.ingredientsInConstructor.ingredients;
+      const [reorderedItem] = newOrderedData.splice(action.payload[0], 1);
+      newOrderedData.splice(action.payload[1], 0, reorderedItem);
+      state.ingredientsInConstructor.ingredients = newOrderedData;
     });
   },
 });

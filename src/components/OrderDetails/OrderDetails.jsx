@@ -1,9 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styles from "./order-details.module.css";
 import PropTypes from "prop-types";
 import classnames from "classnames";
+import { getOrderNumber } from "../../services/selectors/order";
 
-export const OrderDetails = ({ orderNum }) => {
+export const OrderDetails = () => {
+  const orderNum = useSelector(getOrderNumber);
 
   return (
     <>

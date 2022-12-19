@@ -14,7 +14,7 @@ export const BurgerIngredientsGroup = ({ title, data }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
+    <div>
       <p className="text text_type_main-medium pb-6">{title}</p>
       <div className={styles.group}>
         {data.map((element) => (
@@ -33,7 +33,7 @@ export const BurgerIngredientsGroup = ({ title, data }) => {
           <IngredientDetails />
         </Modal>
       )}
-    </>
+    </div>
   );
 };
 

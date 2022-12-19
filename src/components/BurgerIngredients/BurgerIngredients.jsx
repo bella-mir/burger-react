@@ -31,8 +31,8 @@ export const BurgerIngredients = () => {
               refBuns.current.clientHeight -
               refSauces.current.clientHeight <
             0
-          ? "sauce"
-          : "main";
+          ? "main"
+          : "sauce";
     }
     setType(currentTab);
   };

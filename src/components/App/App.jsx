@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { AppHeader } from "../AppHeader/AppHeader";
@@ -20,10 +22,12 @@ const App = () => {
       <AppHeader />
 
       {status === "succeeded" ? (
-        <main className={styles.main}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </main>
+        <DndProvider backend={HTML5Backend}>
+          <main className={styles.main}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </main>
+        </DndProvider>
       ) : (
         <h1>ЗАГРУЗКА</h1>
       )}
