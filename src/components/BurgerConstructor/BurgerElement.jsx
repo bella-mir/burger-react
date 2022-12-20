@@ -5,13 +5,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrop, useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
+import { IngredientPropTypes } from "../../utils/propTypes";
+import PropTypes from "prop-types";
 import classnames from "classnames";
 import styles from "./burgerConstructor.module.css";
 import { deleteFromConstructor } from "../../services/actions/ingredients";
 import { reorderIngredients } from "../../services/actions/ingredients";
 
-export const BurgerElement = ({ id, index, element }) => {
+export const BurgerElement = ({ index, element }) => {
   const dispatch = useDispatch();
+  const id = element.elementId;
 
   const divRef = useRef(null);
 
@@ -69,7 +72,6 @@ export const BurgerElement = ({ id, index, element }) => {
         "pb-4",
         isDragging && styles.dragged
       )}
-      key={element.elementId}
       ref={divRef}
       data-handler-id={handlerID}
       index={index}
@@ -83,4 +85,9 @@ export const BurgerElement = ({ id, index, element }) => {
       />
     </div>
   );
+};
+
+BurgerElement.propTypes = {
+  index: PropTypes.number.isRequired,
+  element: IngredientPropTypes.isRequired,
 };

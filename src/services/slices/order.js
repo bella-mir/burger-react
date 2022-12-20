@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ORDER_STATE_KEY } from "../services-constants";
-import { orderCheckout } from "../../components/utils/api";
+import { orderCheckout } from "../../utils/api";
 
 const initialState = {
   order: {},

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { loadIngerdients } from "../../components/utils/api";
+import { loadIngerdients } from "../../utils/api";
 import {
   selectIngredient,
   addToConstructor,

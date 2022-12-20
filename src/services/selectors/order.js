@@ -7,3 +7,8 @@ export const getOrderNumber = createSelector(
   getOrderState,
   (state) => state.order.number
 );
+
+export const getOrderStatus = createSelector(
+  getOrderState,
+  (state) => state.status
+);

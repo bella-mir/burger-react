@@ -7,7 +7,7 @@ import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
 import { getCountIngredients } from "../../../services/selectors/ingredients";
 import classnames from "classnames";
-import { IngredientPropTypes } from "../../utils/propTypes";
+import { IngredientPropTypes } from "../../../utils/propTypes";
 import PropTypes from "prop-types";
 import styles from "./burgerIngerdient.module.css";
 

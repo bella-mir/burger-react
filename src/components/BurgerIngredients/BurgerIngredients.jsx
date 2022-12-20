@@ -1,12 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IngredientPropTypes } from "../utils/propTypes";
-import PropTypes from "prop-types";
 import styles from "./burgerIngredients.module.css";
 import classnames from "classnames";
 import { BurgerIngredientsGroup } from "./components/BurgerIngredientsGroup";
-
 import { getAllIngredients } from "../../services/selectors/ingredients";
 
 export const BurgerIngredients = () => {
@@ -93,8 +90,4 @@ export const BurgerIngredients = () => {
       )}
     </section>
   );
-};
-
-BurgerIngredients.propTypes = {
-  burgerData: PropTypes.arrayOf(IngredientPropTypes),
 };

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { BurgerIngredient } from "./BurgerIngredient";
 import { Modal } from "../../Modal/Modal";
 import PropTypes from "prop-types";
-import { IngredientPropTypes } from "../../utils/propTypes";
+import { IngredientPropTypes } from "../../../utils/propTypes";
 import { IngredientDetails } from "../../IngredientDetails/IngredientDetails";
 
 import styles from "./burgerIngredientsGroup.module.css";

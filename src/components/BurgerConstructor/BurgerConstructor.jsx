@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ConstructorElement,
   Button,
@@ -8,8 +8,6 @@ import { useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { Modal } from "../Modal/Modal";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
-import { IngredientPropTypes } from "../utils/propTypes";
-import PropTypes from "prop-types";
 import classnames from "classnames";
 import styles from "./burgerConstructor.module.css";
 import { useSelector } from "react-redux";
@@ -23,6 +21,8 @@ import { BurgerElement } from "./BurgerElement";
 export const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const selectedIngredients = useSelector(getIngredientsInConstructor);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const [, dropTarget] = useDrop({
     accept: "ingredient",
@@ -34,7 +34,11 @@ export const BurgerConstructor = () => {
     }),
   });
 
-  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    if (selectedIngredients.bun.name) {
+      setIsDisabled(() => false);
+    }
+  }, [selectedIngredients.bun.name]);
 
   const selectedIngredientsIds =
     selectedIngredients.ingredients &&
@@ -79,7 +83,6 @@ export const BurgerConstructor = () => {
                       key={element.elementId}
                       element={element}
                       index={index}
-                      id={element._id}
                     />
                   ))
                 ) : (
@@ -116,6 +119,7 @@ export const BurgerConstructor = () => {
                 size="large"
                 htmlType="button"
                 onClick={handleClick}
+                disabled={isDisabled}
               >
                 Оформить заказ
               </Button>
@@ -134,8 +138,4 @@ export const BurgerConstructor = () => {
       )}
     </div>
   );
-};
-
-BurgerConstructor.propTypes = {
-  burgerData: PropTypes.arrayOf(IngredientPropTypes),
 };
