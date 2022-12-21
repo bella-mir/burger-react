@@ -3,20 +3,35 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDrag } from "react-dnd";
+import { useSelector } from "react-redux";
+import { getCountIngredients } from "../../../services/selectors/ingredients";
 import classnames from "classnames";
-import { IngredientPropTypes } from "../../utils/propTypes";
+import { IngredientPropTypes } from "../../../utils/propTypes";
 import PropTypes from "prop-types";
 import styles from "./burgerIngerdient.module.css";
 
 export const BurgerIngredient = (props) => {
+  const count = useSelector(
+    getCountIngredients(props.ingredient._id, props.ingredient.type)
+  );
+  const [, dragRef] = useDrag({
+    type: "ingredient",
+    item: props.ingredient,
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0 : 1,
+    }),
+  });
+
   return (
     <div
       className={classnames(styles.card, "pl-4 pb-6")}
       onClick={props.onClick}
       key={props.id}
+      ref={dragRef}
     >
       <div className={styles.counter}>
-        <Counter count={1} size="default" />
+        <Counter count={count || 0} size="default" />
       </div>
       <img
         src={props.ingredient.image_large}

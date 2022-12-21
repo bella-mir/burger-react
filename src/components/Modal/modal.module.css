@@ -21,16 +21,6 @@
   justify-content: space-between;
 }
 
-.close {
-  background-color: transparent;
-  outline: none;
-  border: none;
-  background: url("./../../images/close.svg") no-repeat;
-  background-size: auto;
-  width: 30px;
-  height: 30px;
-}
-
 .close:hover {
   cursor: pointer;
   opacity: 0.5;

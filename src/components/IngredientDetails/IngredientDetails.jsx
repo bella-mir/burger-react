@@ -1,9 +1,11 @@
 import React from "react";
-import { IngredientPropTypes } from "../utils/propTypes";
+import { useSelector } from "react-redux";
+import { getSelectedIngredient } from "../../services/selectors/ingredients";
 import styles from "./ingredient-details.module.css";
 import classnames from "classnames";
 
-export const IngredientDetails = ({ ingredient }) => {
+export const IngredientDetails = () => {
+  const ingredient = useSelector(getSelectedIngredient);
   return (
     <>
       <img
@@ -33,8 +35,4 @@ export const IngredientDetails = ({ ingredient }) => {
       </div>
     </>
   );
-};
-
-IngredientDetails.propTypes = {
-  ingredient: IngredientPropTypes.isRequired,
 };

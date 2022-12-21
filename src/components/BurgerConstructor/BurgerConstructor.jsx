@@ -1,88 +1,111 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ConstructorElement,
   Button,
   CurrencyIcon,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDrop } from "react-dnd";
+import { useDispatch } from "react-redux";
 import { Modal } from "../Modal/Modal";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
-import { BurgerDataContext } from "../context/burger-data-context";
-import { IngredientPropTypes } from "../utils/propTypes";
-import PropTypes from "prop-types";
 import classnames from "classnames";
-import { getMultipleRandom } from "../utils/data-utils";
 import styles from "./burgerConstructor.module.css";
-import { orderCheckout } from "../utils/api";
+import { useSelector } from "react-redux";
+import { addToConstructor } from "../../services/actions/ingredients";
+import { postOrder } from "../../services/slices/order";
+import { getIngredientsInConstructor } from "../../services/selectors/ingredients";
+import bun from "../../../src/asserts/bun.svg";
+import { nanoid } from "@reduxjs/toolkit";
+import { BurgerElement } from "./BurgerElement";
 
 export const BurgerConstructor = () => {
+  const dispatch = useDispatch();
+  const selectedIngredients = useSelector(getIngredientsInConstructor);
   const [isOpen, setIsOpen] = useState(false);
-  const [orderNum, setOrderNum] = useState(null);
-  const burgerData = useContext(BurgerDataContext);
+  const [isDisabled, setIsDisabled] = useState(true);
 
-  const selectedBun = burgerData
-    ? burgerData.filter((element) => element.type === "bun")[
-        Math.floor(Math.random() * 2)
-      ]
-    : null;
+  const [, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      dispatch(addToConstructor({ ...item, elementId: nanoid() }));
+    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+  });
 
-  const all = burgerData
-    ? burgerData.filter(
-        (element) => element.type === "main" || element.type === "sauce"
-      )
-    : null;
+  useEffect(() => {
+    if (selectedIngredients.bun.name) {
+      setIsDisabled(() => false);
+    }
+  }, [selectedIngredients.bun.name]);
 
-  const randomFill = all && getMultipleRandom(all, 7);
-  const randomFillIds =
-    randomFill && randomFill.map((ingredient) => ingredient._id);
+  const selectedIngredientsIds =
+    selectedIngredients.ingredients &&
+    selectedIngredients.ingredients.map((ingredient) => ingredient._id);
 
-  const sum = randomFill
-    ? randomFill.reduce((accumulator, element) => {
-        return accumulator + element.price;
-      }, 0) +
-      selectedBun.price * 2
-    : null;
+  const sum =
+    selectedIngredients.ingredients.reduce((accumulator, element) => {
+      return accumulator + element.price;
+    }, 0) + (selectedIngredients.bun?.price * 2 || 0);
 
   const handleClick = () => {
     setIsOpen(true);
-    orderCheckout(randomFillIds).then((data) => setOrderNum(data.order.number));
+    dispatch(postOrder(selectedIngredientsIds));
   };
 
   return (
-    <>
+    <div ref={dropTarget}>
       <section className={classnames(styles.section, "pt-25 pr-2")}>
-        {burgerData && (
+        {selectedIngredients.ingredients.length > 0 ||
+        selectedIngredients.bun._id ? (
           <>
             <div className={styles.main}>
               <ConstructorElement
                 type="top"
                 isLocked={true}
-                text={`${selectedBun.name} (верх)`}
-                price={selectedBun.price}
-                thumbnail={selectedBun.image_mobile}
+                text={
+                  selectedIngredients.bun.name
+                    ? `${selectedIngredients.bun.name} (верх)`
+                    : "Не забудьте выбрать булочку"
+                }
+                price={selectedIngredients.bun.price}
+                thumbnail={
+                  selectedIngredients.bun.image_mobile
+                    ? selectedIngredients.bun.image_mobile
+                    : bun
+                }
               />
               <div className={styles.inner}>
-                {randomFill.map((element) => (
-                  <div
-                    className={classnames(styles.element, "pb-4")}
-                    key={element._id}
-                  >
-                    <DragIcon />
-                    <ConstructorElement
-                      text={element.name}
-                      price={element.price}
-                      thumbnail={element.image_mobile}
+                {selectedIngredients.ingredients.length > 0 ? (
+                  selectedIngredients.ingredients.map((element, index) => (
+                    <BurgerElement
+                      key={element.elementId}
+                      element={element}
+                      index={index}
                     />
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p className="text text_type_main-medium pb-6">
+                    Переместите сюда начинку
+                  </p>
+                )}
               </div>
 
               <ConstructorElement
                 type="bottom"
                 isLocked={true}
-                text={`${selectedBun.name} (низ)`}
-                price={selectedBun.price}
-                thumbnail={selectedBun.image_mobile}
+                text={
+                  selectedIngredients.bun.name
+                    ? `${selectedIngredients.bun.name} (низ)`
+                    : "Не забудьте выбрать булочку"
+                }
+                price={selectedIngredients.bun.price}
+                thumbnail={
+                  selectedIngredients.bun.image_mobile
+                    ? selectedIngredients.bun.image_mobile
+                    : bun
+                }
               />
             </div>
 
@@ -96,22 +119,23 @@ export const BurgerConstructor = () => {
                 size="large"
                 htmlType="button"
                 onClick={handleClick}
+                disabled={isDisabled}
               >
                 Оформить заказ
               </Button>
             </section>
           </>
+        ) : (
+          <p className="text text_type_main-medium pb-6">
+            Переместите сюда ингредиенты для бургера
+          </p>
         )}
       </section>
       {isOpen && (
         <Modal setIsOpen={setIsOpen} header={""}>
-          <OrderDetails orderNum={orderNum} />
+          <OrderDetails />
         </Modal>
       )}
-    </>
+    </div>
   );
-};
-
-BurgerConstructor.propTypes = {
-  burgerData: PropTypes.arrayOf(IngredientPropTypes),
 };

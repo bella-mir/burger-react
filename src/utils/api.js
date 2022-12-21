@@ -1,12 +1,12 @@
 import { API_URL } from "./app-constants";
-import { checkResponse } from "./app-utils";
+import { request } from "./app-utils";
 
-export const getIngerdients = () => {
-  return fetch(`${API_URL}/ingredients`).then(checkResponse);
+export const loadIngerdients = () => {
+  return request(`${API_URL}/ingredients`);
 };
 
 export const orderCheckout = (ingredients) => {
-  return fetch(`${API_URL}/orders`, {
+  return request(`${API_URL}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -14,5 +14,5 @@ export const orderCheckout = (ingredients) => {
     body: JSON.stringify({
       ingredients: ingredients,
     }),
-  }).then(checkResponse);
+  });
 };
