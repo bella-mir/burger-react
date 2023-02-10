@@ -1,0 +1,22 @@
+.content {
+  width: 100%;
+  height: calc(100vh - 90px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.questions {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: rgba(133, 133, 173, 1);
+}
+
+.link {
+  text-decoration: none;
+  color: rgba(76, 76, 255, 1);
+}

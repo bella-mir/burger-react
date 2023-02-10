@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getSelectedIngredient } from "../../services/selectors/ingredients";
+import {
+  getSelectedIngredient,
+  getAllIngredients,
+} from "../../services/selectors/ingredients";
 import styles from "./ingredient-details.module.css";
 import classnames from "classnames";
 
 export const IngredientDetails = () => {
-  const ingredient = useSelector(getSelectedIngredient);
+  const selectedIngredient = useSelector(getSelectedIngredient);
+  const allIngredients = useSelector(getAllIngredients);
+  const { ingredientId } = useParams();
+  const [ingredient, setIngredient] = useState();
+
+  useEffect(() => {
+    const ingredientById = allIngredients.filter(
+      (ingredient) => ingredient._id === ingredientId
+    );
+    setIngredient(selectedIngredient ? selectedIngredient : ingredientById);
+  }, [allIngredients, ingredientId, selectedIngredient]);
+
+  if (!ingredient) {
+    return null;
+  } else {
+    console.log(ingredient);
+  }
+
   return (
     <>
       <img

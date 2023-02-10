@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { addToConstructor } from "../../services/actions/ingredients";
 import { postOrder } from "../../services/slices/order";
 import { getIngredientsInConstructor } from "../../services/selectors/ingredients";
-import bun from "../../../src/asserts/bun.svg";
+import bun from "../../../src/asserts/loading.svg";
 import { nanoid } from "@reduxjs/toolkit";
 import { BurgerElement } from "./BurgerElement";
 
@@ -86,8 +86,13 @@ export const BurgerConstructor = () => {
                     />
                   ))
                 ) : (
-                  <p className="text text_type_main-medium pb-6">
-                    Переместите сюда начинку
+                  <p
+                    className={classnames(
+                      styles.emptyArea,
+                      "text text_type_main-medium pb-6"
+                    )}
+                  >
+                    переместите сюда начинку
                   </p>
                 )}
               </div>
@@ -126,7 +131,12 @@ export const BurgerConstructor = () => {
             </section>
           </>
         ) : (
-          <p className="text text_type_main-medium pb-6">
+          <p
+            className={classnames(
+              styles.emptyArea,
+              "text text_type_main-medium pb-6"
+            )}
+          >
             Переместите сюда ингредиенты для бургера
           </p>
         )}
