@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useAuth } from "../../hooks/use-auth";
+import { useForm } from "../../hooks/use-form";
 import cn from "classnames";
 import { Link } from "react-router-dom";
 import {
@@ -9,48 +10,58 @@ import {
 import styles from "./loginPage.module.css";
 
 export const SignUpPage = () => {
-  const [value, setValue] = useState("");
-  const onChange = (e) => {
-    setValue(e.target.value);
+  const controlInput = useForm();
+  const auth = useAuth();
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    const { email, password, name } = controlInput.values;
+    auth.signup(email, password, name);
   };
 
   return (
     <div className={styles.content}>
       <div className="text text_type_main-medium">Регистрация</div>
       <Input
-        onChange={onChange}
-        value={value}
-        name={"Name"}
+        onChange={controlInput.handleChange}
+        value={controlInput?.values?.name}
+        name={"name"}
         placeholder="Имя"
         contentEditable={true}
         extraClass="mb-2"
-        // autocomplete={false}
       />
       <Input
-        onChange={onChange}
-        value={value}
+        onChange={controlInput.handleChange}
+        value={controlInput?.values?.email}
         name={"email"}
         placeholder="Email"
         isIcon={true}
         contentEditable={true}
         extraClass="mb-2"
-        // autocomplete={false}
       />
       <PasswordInput
-        onChange={onChange}
-        value={value}
+        onChange={controlInput.handleChange}
+        value={controlInput?.values?.password}
         name={"password"}
         placeholder="Пароль"
         extraClass="mb-2"
-        // autocomplete="off"
       />
-      <Button htmlType="button" type="primary" size="medium" extraClass="ml-2">
+      <Button
+        htmlType="button"
+        type="primary"
+        size="medium"
+        extraClass="ml-2"
+        onCLick={handleSignUp}
+      >
         Зарегистрироваться
       </Button>
       <div className={cn(styles.questions, "mt-15")}>
         <div>
-          Уже зарегистрировались? 
-          <Link className={styles.link} to='/login'> Войти</Link>
+          Уже зарегистрировались?
+          <Link className={styles.link} to="/login">
+            {" "}
+            Войти
+          </Link>
         </div>
       </div>
     </div>

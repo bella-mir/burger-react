@@ -1,0 +1,1 @@
+export const unavailableForLoggedIn = ['/login' , '/register', '/forgot-password', '/reset-password']

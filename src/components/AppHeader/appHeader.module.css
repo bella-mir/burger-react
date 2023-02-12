@@ -30,6 +30,6 @@
   gap: 50px;
 }
 
-.active {
-  color: "#F2F2F3";
+.navDisabled {
+  cursor: not-allowed;
 }

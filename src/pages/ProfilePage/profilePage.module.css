@@ -1,8 +1,7 @@
 .wrapper {
   max-width: 1200px;
-  height: calc(100vh - 90px);
   display: flex;
-  align-items: center;
+  padding-top: 200px;
   justify-content: center;
   width: 100%;
   margin: 0 auto;
@@ -35,4 +34,8 @@
 
 .navActive {
   color: rgba(242, 242, 243, 1);
+}
+
+.navDisabled {
+  cursor: not-allowed;
 }

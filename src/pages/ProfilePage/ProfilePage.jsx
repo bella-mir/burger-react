@@ -1,16 +1,21 @@
-import { useState } from "react";
 import cn from "classnames";
+import { useAuth } from "../../hooks/use-auth";
+import { useForm } from "../../hooks/use-form";
 import { NavLink } from "react-router-dom";
 import {
   Input,
   PasswordInput,
+  EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profilePage.module.css";
 
 export const ProfilePage = () => {
-  const [value, setValue] = useState("");
-  const onChange = (e) => {
-    setValue(e.target.value);
+  const controlInput = useForm();
+  const auth = useAuth();
+
+  //temporary solution to disable some links
+  const handleDisabledClick = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -18,7 +23,6 @@ export const ProfilePage = () => {
       <div className={styles.content}>
         <div className={styles.menu}>
           <NavLink
-            // className={cn(styles.nav, "text text_type_main-medium")}
             to="/profile"
             className={({ isActive }) =>
               isActive
@@ -29,14 +33,24 @@ export const ProfilePage = () => {
             Профиль
           </NavLink>
           <NavLink
-            className={cn(styles.nav, "text text_type_main-medium")}
-            to="#"
+            className={cn(
+              styles.nav,
+              styles.navDisabled,
+              "text text_type_main-medium"
+            )}
+            to="/profile/orders"
+            onClick={handleDisabledClick}
           >
             История заказов
           </NavLink>
           <NavLink
-            className={cn(styles.nav, "text text_type_main-medium")}
-            to="#"
+            className={cn(
+              styles.nav,
+              styles.navDisabled,
+              "text text_type_main-medium"
+            )}
+            to="profile/orders/:id"
+            onClick={controlInput.handleDisabled}
           >
             Выход
           </NavLink>
@@ -46,34 +60,37 @@ export const ProfilePage = () => {
         </div>
         <div className={styles.info}>
           <Input
-            onChange={onChange}
-            value={value}
-            name={"Name"}
+            onChange={controlInput.handleChange}
+            value={auth?.user?.name}
+            name={"name"}
             placeholder="Имя"
             extraClass="mb-2"
             contentEditable={true}
             icon={"EditIcon"}
-            // autocomplete={false}
+            disabled={true}
+            onIconClick={controlInput.handleDisabled}
           />
-          <Input
-            onChange={onChange}
-            value={value}
+          <EmailInput
+            onChange={controlInput.handleChange}
+            value={auth?.user?.email}
             name={"email"}
             placeholder="Email"
             isIcon={true}
             extraClass="mb-2"
             contentEditable={true}
             icon={"EditIcon"}
-            // autocomplete={false}
+            disabled={true}
+            onIconClick={controlInput.handleDisabled}
           />
           <PasswordInput
-            onChange={onChange}
-            value={value}
+            onChange={controlInput.handleChange}
+            value={auth?.user?.password}
             name={"password"}
             placeholder="Пароль"
             extraClass="mb-2"
             contentEditable={true}
-            // autocomplete="off"
+            disabled={true}
+            onIconClick={controlInput.handleDisabled}
           />
         </div>
       </div>
