@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchIngredients } from "../../services/slices/ingredients";
 import { Modal } from "../Modal/Modal";
@@ -22,11 +23,32 @@ import styles from "./app.module.css";
 const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const background = location.state && location.state.background;
+
+  useEffect(() => {
+    tokenCheck();
+  }, []);
 
   useEffect(() => {
     dispatch(fetchIngredients());
   }, [dispatch]);
+
+  const handleModalClose = useCallback(
+    (isOpen) => {
+      !isOpen && navigate("/");
+    },
+    [navigate]
+  );
+
+  const tokenCheck = () => {
+    const jwt = localStorage.getItem("accessToken");
+    if (jwt) {
+      navigate(location.pathname);
+    } else {
+      console.log("ERROR");
+    }
+  };
 
   return (
     <div className={styles.page}>
@@ -42,12 +64,12 @@ const App = () => {
             path="/profile"
             element={
               <ProtectedRouteElement>
-                {" "}
-                <ProfilePage />{" "}
+                <ProfilePage />
               </ProtectedRouteElement>
             }
           />
           <Route
+            exact
             path="/ingredients/:ingredientId"
             element={<IngredientPage />}
           />
@@ -58,7 +80,10 @@ const App = () => {
             <Route
               path="/ingredients/:ingredientId"
               element={
-                <Modal header={"Детали ингредиента"}>
+                <Modal
+                  header={"Детали ингредиента"}
+                  setIsOpen={handleModalClose}
+                >
                   <IngredientDetails />
                 </Modal>
               }

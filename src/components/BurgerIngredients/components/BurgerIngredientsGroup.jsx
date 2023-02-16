@@ -18,10 +18,8 @@ export const BurgerIngredientsGroup = ({ title, data }) => {
         {data.map((element) => (
           <Link
             key={element._id}
-            to={{
-              pathname: `/ingredients/${element._id}`,
-              state: { background: location },
-            }}
+            to={`/ingredients/${element._id}`}
+            state={{ background: location }}
             className={styles.link}
           >
             <BurgerIngredient

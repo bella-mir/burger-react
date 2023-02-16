@@ -1,7 +1,7 @@
 import { useAuth } from "../../hooks/use-auth";
 import { useForm } from "../../hooks/use-form";
 import cn from "classnames";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Input,
   Button,
@@ -12,11 +12,17 @@ import styles from "./loginPage.module.css";
 export const SignUpPage = () => {
   const controlInput = useForm();
   const auth = useAuth();
+  const navigate = useNavigate()
 
   const handleSignUp = (e) => {
-    e.preventDefault();
     const { email, password, name } = controlInput.values;
-    auth.signup(email, password, name);
+    try {
+      auth.signup(email, password, name)
+      navigate('/')
+    }
+    catch{
+      console.log("Signing up ERROR")
+    }
   };
 
   return (
@@ -51,7 +57,7 @@ export const SignUpPage = () => {
         type="primary"
         size="medium"
         extraClass="ml-2"
-        onCLick={handleSignUp}
+        onClick={handleSignUp}
       >
         Зарегистрироваться
       </Button>

@@ -15,7 +15,7 @@ export const LoginPage = () => {
 
   const handleLogin = (e) => {
     const { email, password } = controlInput.values;
-    auth.login(email, password);
+    auth.signin(email, password);
   };
 
   return (

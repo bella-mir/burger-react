@@ -50,7 +50,7 @@ export const ProfilePage = () => {
               "text text_type_main-medium"
             )}
             to="profile/orders/:id"
-            onClick={controlInput.handleDisabled}
+            onClick={auth.signout}
           >
             Выход
           </NavLink>
