@@ -1,6 +1,11 @@
 import cn from "classnames";
-import { useAuth } from "../../hooks/use-auth";
 import { useForm } from "../../hooks/use-form";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getAuthStatus } from "../../services/selectors/auth";
+import { loginUser } from "../../services/actions/auth";
 import { Link } from "react-router-dom";
 import {
   Input,
@@ -11,12 +16,19 @@ import styles from "./loginPage.module.css";
 
 export const LoginPage = () => {
   const controlInput = useForm();
-  const auth = useAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const status = useSelector(getAuthStatus);
 
-  const handleLogin = (e) => {
-    const { email, password } = controlInput.values;
-    auth.signin(email, password);
+  const handleLogin = () => {
+    dispatch(loginUser({ ...controlInput?.values }));
   };
+
+  useEffect(() => {
+    if (status === "success") {
+      navigate("/");
+    }
+  }, [navigate, status]);
 
   return (
     <div className={styles.content}>

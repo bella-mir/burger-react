@@ -1,21 +1,43 @@
 import cn from "classnames";
-import { useAuth } from "../../hooks/use-auth";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser, updateUserData } from "../../services/actions/auth";
 import { useForm } from "../../hooks/use-form";
 import { NavLink } from "react-router-dom";
 import {
+  Button,
   Input,
-  PasswordInput,
-  EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profilePage.module.css";
+import { getUserInfo } from "../../services/selectors/auth";
 
 export const ProfilePage = () => {
   const controlInput = useForm();
-  const auth = useAuth();
+  const dispatch = useDispatch();
+  const [isEditing, enableEditing] = useState(false);
+  const refreshToken = localStorage.getItem("refreshToken");
+  const user = useSelector(getUserInfo);
+
+  const handleLogout = () => {
+    dispatch(logoutUser({ refreshToken }));
+  };
 
   //temporary solution to disable some links
   const handleDisabledClick = (e) => {
     e.preventDefault();
+  };
+
+  const onCancelClick = () => {
+    enableEditing(false);
+  };
+
+  const onSaveClick = () => {
+    dispatch(updateUserData({ ...controlInput?.values }));
+    enableEditing(false);
+  };
+
+  const onEditClick = () => {
+    enableEditing(true);
   };
 
   return (
@@ -44,13 +66,8 @@ export const ProfilePage = () => {
             История заказов
           </NavLink>
           <NavLink
-            className={cn(
-              styles.nav,
-              styles.navDisabled,
-              "text text_type_main-medium"
-            )}
-            to="profile/orders/:id"
-            onClick={auth.signout}
+            className={cn(styles.nav, "text text_type_main-medium")}
+            onClick={handleLogout}
           >
             Выход
           </NavLink>
@@ -61,37 +78,59 @@ export const ProfilePage = () => {
         <div className={styles.info}>
           <Input
             onChange={controlInput.handleChange}
-            value={auth?.user?.name}
+            value={controlInput.values ? controlInput.values.name : user?.name}
             name={"name"}
             placeholder="Имя"
             extraClass="mb-2"
             contentEditable={true}
             icon={"EditIcon"}
-            disabled={true}
-            onIconClick={controlInput.handleDisabled}
+            disabled={!isEditing}
+            onIconClick={onEditClick}
           />
-          <EmailInput
+          <Input
             onChange={controlInput.handleChange}
-            value={auth?.user?.email}
+            value={
+              controlInput.values ? controlInput.values.email : user?.email
+            }
             name={"email"}
             placeholder="Email"
             isIcon={true}
             extraClass="mb-2"
             contentEditable={true}
             icon={"EditIcon"}
-            disabled={true}
-            onIconClick={controlInput.handleDisabled}
+            disabled={!isEditing}
+            onIconClick={onEditClick}
           />
-          <PasswordInput
+          <Input
             onChange={controlInput.handleChange}
-            value={auth?.user?.password}
             name={"password"}
             placeholder="Пароль"
             extraClass="mb-2"
             contentEditable={true}
-            disabled={true}
-            onIconClick={controlInput.handleDisabled}
+            icon={"EditIcon"}
+            disabled={!isEditing}
+            onIconClick={onEditClick}
           />
+          <div className={styles.buttons}>
+            <Button
+              htmlType="button"
+              type="secondary"
+              size="medium"
+              onClick={onCancelClick}
+              disabled={!isEditing}
+            >
+              Отмена
+            </Button>
+            <Button
+              htmlType="button"
+              type="primary"
+              size="medium"
+              disabled={!isEditing}
+              onClick={onSaveClick}
+            >
+              Сохранить
+            </Button>
+          </div>
         </div>
       </div>
     </div>

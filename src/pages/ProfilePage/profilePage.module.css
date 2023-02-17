@@ -39,3 +39,9 @@
 .navDisabled {
   cursor: not-allowed;
 }
+
+.buttons {
+  width: 480px;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,7 +1,12 @@
-import { useAuth } from "../../hooks/use-auth";
 import { useForm } from "../../hooks/use-form";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getAuthStatus } from "../../services/selectors/auth";
+import { useEffect } from "react";
 import cn from "classnames";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { signupUser } from "../../services/actions/auth";
 import {
   Input,
   Button,
@@ -10,20 +15,20 @@ import {
 import styles from "./loginPage.module.css";
 
 export const SignUpPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const controlInput = useForm();
-  const auth = useAuth();
-  const navigate = useNavigate()
+  const status = useSelector(getAuthStatus);
 
-  const handleSignUp = (e) => {
-    const { email, password, name } = controlInput.values;
-    try {
-      auth.signup(email, password, name)
-      navigate('/')
-    }
-    catch{
-      console.log("Signing up ERROR")
-    }
+  const handleSignUp = () => {
+    dispatch(signupUser({ ...controlInput?.values }));
   };
+
+  useEffect(() => {
+    if (status === "success") {
+      navigate("/");
+    }
+  }, [navigate, status]);
 
   return (
     <div className={styles.content}>

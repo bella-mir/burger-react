@@ -5,20 +5,24 @@ import {
   ProfileIcon,
   Logo,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useAuth } from "../../hooks/use-auth";
+import { useSelector } from "react-redux";
 import cn from "classnames";
 import styles from "./appHeader.module.css";
 import { NavLink } from "react-router-dom";
+import { getUserInfo } from "../../services/selectors/auth";
 
 export const AppHeader = () => {
-  const auth = useAuth();
-  const isUser = auth?.user?.name;
-
+  const user = useSelector(getUserInfo);
   const [menuTitle, setMenuTitle] = useState("Войти");
 
   useEffect(() => {
-    isUser ? setMenuTitle("Личный кабинет") : setMenuTitle("Войти");
-  }, [isUser]);
+    console.log(user);
+    if (user.name) {
+      setMenuTitle("Личный кабинет");
+    } else {
+      setMenuTitle("Войти");
+    }
+  }, [user]);
 
   //temporary solution to disable some links
   const handleDisabledClick = (e) => {
