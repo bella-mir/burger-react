@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { API_URL } from "../../utils/app-constants";
 
-export const BASE_URL = " https://norma.nomoreparties.space/api";
+
 
 export const signupUser = createAsyncThunk(
   "auth/signupUser",
   async ({ email, password, name }, thunkAPI) => {
     try {
-      const response = await fetch(`${BASE_URL}/auth/register`, {
+      const response = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -19,7 +20,6 @@ export const signupUser = createAsyncThunk(
         }),
       });
       let data = await response.json();
-      console.log("data", data);
       if (response.status === 200) {
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
@@ -38,7 +38,7 @@ export const loginUser = createAsyncThunk(
   "auth/login",
   async ({ email, password }, thunkAPI) => {
     try {
-      const response = await fetch(`${BASE_URL}/auth/login`, {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -50,7 +50,6 @@ export const loginUser = createAsyncThunk(
         }),
       });
       let data = await response.json();
-      console.log("response", data);
       if (response.status === 200) {
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
@@ -69,7 +68,7 @@ export const logoutUser = createAsyncThunk(
   "auth/logout",
   async ({ refreshToken }, thunkAPI) => {
     try {
-      const response = await fetch(`${BASE_URL}/auth/logout`, {
+      const response = await fetch(`${API_URL}/auth/logout`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -80,7 +79,6 @@ export const logoutUser = createAsyncThunk(
         }),
       });
       let data = await response.json();
-      console.log("response", data);
       if (response.status === 200) {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
@@ -99,7 +97,7 @@ export const getUserData = createAsyncThunk(
   "auth/getUserData",
   async (thunkAPI) => {
     try {
-      const response = await fetch(`${BASE_URL}/auth/user`, {
+      const response = await fetch(`${API_URL}/auth/user`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -108,7 +106,6 @@ export const getUserData = createAsyncThunk(
         },
       });
       let data = await response.json();
-      console.log("responseGetUser", data);
       if (response.status === 200) {
         return data;
       } else {
@@ -124,7 +121,7 @@ export const updateUserData = createAsyncThunk(
   "auth/updateUserData",
   async ({ email, name, password }, thunkAPI) => {
     try {
-      const response = await fetch(`${BASE_URL}/auth/user`, {
+      const response = await fetch(`${API_URL}/auth/user`, {
         method: "PATCH",
         headers: {
           Accept: "application/json",
@@ -138,7 +135,6 @@ export const updateUserData = createAsyncThunk(
         }),
       });
       let data = await response.json();
-      console.log("responseEditUser", data);
       if (response.status === 200) {
         return data;
       } else {

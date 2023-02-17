@@ -16,3 +16,28 @@ export const orderCheckout = (ingredients) => {
     }),
   });
 };
+
+export const resetPassword = (email) => {
+  return request(`${API_URL}/reset-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+    }),
+  });
+};
+
+export const updatePassword = ({ password, token }) => {
+  return request(`${API_URL}/reset-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      password: password,
+      token: token,
+    }),
+  });
+};

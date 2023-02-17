@@ -16,7 +16,6 @@ export const AppHeader = () => {
   const [menuTitle, setMenuTitle] = useState("Войти");
 
   useEffect(() => {
-    console.log(user);
     if (user.name) {
       setMenuTitle("Личный кабинет");
     } else {

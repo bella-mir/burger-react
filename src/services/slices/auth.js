@@ -36,7 +36,6 @@ export const authSlice = createSlice({
       state.errorMessage = "";
     },
     [loginUser.rejected]: (state, { payload }) => {
-      console.log("payload", payload);
       state.status = "error";
       state.errorMessage = payload.message;
     },
@@ -50,7 +49,6 @@ export const authSlice = createSlice({
       state.errorMessage = "";
     },
     [logoutUser.rejected]: (state, { payload }) => {
-      console.log("payload", payload);
       state.status = "error";
       state.errorMessage = payload.message;
     },
@@ -64,7 +62,6 @@ export const authSlice = createSlice({
       state.errorMessage = "";
     },
     [getUserData.rejected]: (state, { payload }) => {
-      console.log("payload", payload);
       state.status = "error";
       state.errorMessage = payload.message;
     },
@@ -78,7 +75,6 @@ export const authSlice = createSlice({
       state.errorMessage = "";
     },
     [updateUserData.rejected]: (state, { payload }) => {
-      console.log("payload", payload);
       state.status = "error";
       state.errorMessage = payload.message;
     },

@@ -20,6 +20,7 @@ export const ProfilePage = () => {
 
   const handleLogout = () => {
     dispatch(logoutUser({ refreshToken }));
+    dispatch(logoutUser({ refreshToken }));
   };
 
   //temporary solution to disable some links
