@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser, updateUserData } from "../../services/actions/auth";
 import { useForm } from "../../hooks/use-form";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Button,
   Input,
@@ -14,13 +14,15 @@ import { getUserInfo } from "../../services/selectors/auth";
 export const ProfilePage = () => {
   const controlInput = useForm();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isEditing, enableEditing] = useState(false);
   const refreshToken = localStorage.getItem("refreshToken");
   const user = useSelector(getUserInfo);
 
   const handleLogout = () => {
     dispatch(logoutUser({ refreshToken }));
-    dispatch(logoutUser({ refreshToken }));
+
+    navigate("/login");
   };
 
   //temporary solution to disable some links
@@ -113,24 +115,28 @@ export const ProfilePage = () => {
             onIconClick={onEditClick}
           />
           <div className={styles.buttons}>
-            <Button
-              htmlType="button"
-              type="secondary"
-              size="medium"
-              onClick={onCancelClick}
-              disabled={!isEditing}
-            >
-              Отмена
-            </Button>
-            <Button
-              htmlType="button"
-              type="primary"
-              size="medium"
-              disabled={!isEditing}
-              onClick={onSaveClick}
-            >
-              Сохранить
-            </Button>
+            {isEditing && (
+              <>
+                <Button
+                  htmlType="button"
+                  type="secondary"
+                  size="medium"
+                  onClick={onCancelClick}
+                  disabled={!isEditing}
+                >
+                  Отмена
+                </Button>
+                <Button
+                  htmlType="button"
+                  type="primary"
+                  size="medium"
+                  disabled={!isEditing}
+                  onClick={onSaveClick}
+                >
+                  Сохранить
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>
