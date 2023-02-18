@@ -79,65 +79,68 @@ export const ProfilePage = () => {
           </span>
         </div>
         <div className={styles.info}>
-          <Input
-            onChange={controlInput.handleChange}
-            value={controlInput.values ? controlInput.values.name : user?.name}
-            name={"name"}
-            placeholder="Имя"
-            extraClass="mb-2"
-            contentEditable={true}
-            icon={"EditIcon"}
-            disabled={!isEditing}
-            onIconClick={onEditClick}
-          />
-          <Input
-            onChange={controlInput.handleChange}
-            value={
-              controlInput.values ? controlInput.values.email : user?.email
-            }
-            name={"email"}
-            placeholder="Email"
-            isIcon={true}
-            extraClass="mb-2"
-            contentEditable={true}
-            icon={"EditIcon"}
-            disabled={!isEditing}
-            onIconClick={onEditClick}
-          />
-          <Input
-            onChange={controlInput.handleChange}
-            name={"password"}
-            placeholder="Пароль"
-            extraClass="mb-2"
-            contentEditable={true}
-            icon={"EditIcon"}
-            disabled={!isEditing}
-            onIconClick={onEditClick}
-          />
-          <div className={styles.buttons}>
-            {isEditing && (
-              <>
-                <Button
-                  htmlType="button"
-                  type="secondary"
-                  size="medium"
-                  onClick={onCancelClick}
-                  disabled={!isEditing}
-                >
-                  Отмена
-                </Button>
-                <Button
-                  htmlType="button"
-                  type="primary"
-                  size="medium"
-                  disabled={!isEditing}
-                  onClick={onSaveClick}
-                >
-                  Сохранить
-                </Button>
-              </>
-            )}
-          </div>
+          <form onSubmit={onSaveClick} className={styles.form}>
+            <Input
+              onChange={controlInput.handleChange}
+              value={
+                controlInput.values ? controlInput.values.name : user?.name
+              }
+              name={"name"}
+              placeholder="Имя"
+              extraClass="mb-2"
+              contentEditable={true}
+              icon={"EditIcon"}
+              disabled={!isEditing}
+              onIconClick={onEditClick}
+            />
+            <Input
+              onChange={controlInput.handleChange}
+              value={
+                controlInput.values ? controlInput.values.email : user?.email
+              }
+              name={"email"}
+              placeholder="Email"
+              isIcon={true}
+              extraClass="mb-2"
+              contentEditable={true}
+              icon={"EditIcon"}
+              disabled={!isEditing}
+              onIconClick={onEditClick}
+            />
+            <Input
+              onChange={controlInput.handleChange}
+              name={"password"}
+              placeholder="Пароль"
+              extraClass="mb-2"
+              contentEditable={true}
+              icon={"EditIcon"}
+              disabled={!isEditing}
+              onIconClick={onEditClick}
+            />
+            <div className={styles.buttons}>
+              {isEditing && (
+                <>
+                  <Button
+                    htmlType="button"
+                    type="secondary"
+                    size="medium"
+                    onClick={onCancelClick}
+                    disabled={!isEditing}
+                  >
+                    Отмена
+                  </Button>
+                  <Button
+                    htmlType="submit"
+                    type="primary"
+                    size="medium"
+                    disabled={!isEditing}
+                  >
+                    Сохранить
+                  </Button>
+                </>
+              )}
+            </div>
+          </form>
         </div>
       </div>
     </div>

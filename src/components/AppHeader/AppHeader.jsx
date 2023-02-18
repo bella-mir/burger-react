@@ -59,8 +59,9 @@ export const AppHeader = () => {
             Лента заказов
           </NavLink>
         </div>
-
-        <Logo />
+        <NavLink to="/">
+          <Logo />
+        </NavLink>
 
         <NavLink
           to="/profile"

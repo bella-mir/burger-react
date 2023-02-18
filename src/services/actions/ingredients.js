@@ -13,6 +13,10 @@ export const deleteFromConstructor = createAction(
   `${INGREDIENTS_STATE_KEY}/deleteFromConstructor`
 );
 
+export const deleteAllFromConstructor = createAction(
+  `${INGREDIENTS_STATE_KEY}/deleteAllFromConstructor`
+);
+
 export const reorderIngredients = createAction(
   `${INGREDIENTS_STATE_KEY}/reorderIngredients`
 );

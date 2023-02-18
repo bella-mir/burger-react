@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ConstructorElement,
   Button,
@@ -11,15 +12,22 @@ import { OrderDetails } from "../OrderDetails/OrderDetails";
 import classnames from "classnames";
 import styles from "./burgerConstructor.module.css";
 import { useSelector } from "react-redux";
-import { addToConstructor } from "../../services/actions/ingredients";
+import {
+  addToConstructor,
+  deleteAllFromConstructor,
+} from "../../services/actions/ingredients";
 import { postOrder } from "../../services/slices/order";
 import { getIngredientsInConstructor } from "../../services/selectors/ingredients";
 import bun from "../../../src/asserts/loading.svg";
 import { nanoid } from "@reduxjs/toolkit";
 import { BurgerElement } from "./BurgerElement";
+import { getUserInfo } from "../../services/selectors/auth";
 
 export const BurgerConstructor = () => {
   const dispatch = useDispatch();
+  const user = useSelector(getUserInfo);
+  const navigate = useNavigate();
+  const isAuth = Boolean(user?.name);
   const selectedIngredients = useSelector(getIngredientsInConstructor);
   const [isOpen, setIsOpen] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -49,9 +57,18 @@ export const BurgerConstructor = () => {
       return accumulator + element.price;
     }, 0) + (selectedIngredients.bun?.price * 2 || 0);
 
+  const redirectToLogin = () => {
+    navigate("/login");
+  };
+
   const handleClick = () => {
-    setIsOpen(true);
-    dispatch(postOrder(selectedIngredientsIds));
+    if (isAuth) {
+      setIsOpen(true);
+      dispatch(postOrder(selectedIngredientsIds));
+      dispatch(deleteAllFromConstructor());
+    } else {
+      redirectToLogin();
+    }
   };
 
   return (

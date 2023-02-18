@@ -1,8 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { API_URL } from "../../utils/app-constants";
 
-
-
 export const signupUser = createAsyncThunk(
   "auth/signupUser",
   async ({ email, password, name }, thunkAPI) => {

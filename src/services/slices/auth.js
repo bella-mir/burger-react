@@ -37,7 +37,7 @@ export const authSlice = createSlice({
     },
     [loginUser.rejected]: (state, { payload }) => {
       state.status = "error";
-      state.errorMessage = payload.message;
+      state.errorMessage = payload?.message;
     },
     [loginUser.pending]: (state) => {
       state.status = "pending";
@@ -50,7 +50,7 @@ export const authSlice = createSlice({
     },
     [logoutUser.rejected]: (state, { payload }) => {
       state.status = "error";
-      state.errorMessage = payload.message;
+      state.errorMessage = payload?.message;
     },
     [logoutUser.pending]: (state) => {
       state.status = "pending";
@@ -63,7 +63,7 @@ export const authSlice = createSlice({
     },
     [getUserData.rejected]: (state, { payload }) => {
       state.status = "error";
-      state.errorMessage = payload.message;
+      state.errorMessage = payload?.message;
     },
     [getUserData.pending]: (state) => {
       state.status = "pending";
@@ -76,7 +76,7 @@ export const authSlice = createSlice({
     },
     [updateUserData.rejected]: (state, { payload }) => {
       state.status = "error";
-      state.errorMessage = payload.message;
+      state.errorMessage = payload?.message;
     },
     [updateUserData.pending]: (state) => {
       state.status = "pending";
