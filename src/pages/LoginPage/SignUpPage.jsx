@@ -20,7 +20,8 @@ export const SignUpPage = () => {
   const controlInput = useForm();
   const status = useSelector(getAuthStatus);
 
-  const handleSignUp = () => {
+  const handleSignUp = (e) => {
+    e.preventDefault();
     dispatch(signupUser({ ...controlInput?.values }));
   };
 

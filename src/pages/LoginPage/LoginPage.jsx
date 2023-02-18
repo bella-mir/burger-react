@@ -21,7 +21,8 @@ export const LoginPage = () => {
   const location = useLocation();
   const status = useSelector(getAuthStatus);
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     dispatch(loginUser({ ...controlInput?.values }));
   };
 

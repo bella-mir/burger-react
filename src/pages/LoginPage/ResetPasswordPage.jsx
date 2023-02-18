@@ -15,7 +15,8 @@ export const ResetPasswordPage = () => {
   const controlInput = useForm();
   const location = useLocation();
 
-  const handleUpdatePassword = () => {
+  const handleUpdatePassword = (e) => {
+    e.preventDefault();
     controlInput?.values &&
       dispatch(
         updatePassword({

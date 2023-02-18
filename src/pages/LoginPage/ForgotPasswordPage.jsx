@@ -13,7 +13,8 @@ export const ForgotPasswordPage = () => {
   const location = useLocation();
   const controlInput = useForm();
 
-  const handleResetPassword = () => {
+  const handleResetPassword = (e) => {
+    e.preventDefault();
     controlInput?.values.email &&
       resetPassword(controlInput.values.email).then(
         (response) =>

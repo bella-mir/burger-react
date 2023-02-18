@@ -34,7 +34,8 @@ export const ProfilePage = () => {
     enableEditing(false);
   };
 
-  const onSaveClick = () => {
+  const onSaveClick = (e) => {
+    e.preventDefault();
     dispatch(updateUserData({ ...controlInput?.values }));
     enableEditing(false);
   };
