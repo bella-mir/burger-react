@@ -18,10 +18,9 @@ export const SignUpPage = () => {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    dispatch(signupUser({ ...controlInput?.values })).then(
-      (response) =>
-        response.success === true && navigate(location?.state?.from || "/")
-    );
+    dispatch(signupUser({ ...controlInput?.values })).then(() => {
+      navigate(location?.state?.from || "/");
+    });
   };
 
   return (

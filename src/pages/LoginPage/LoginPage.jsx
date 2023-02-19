@@ -18,10 +18,9 @@ export const LoginPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(loginUser({ ...controlInput?.values })).then(
-      (response) =>
-        response.success === true && navigate(location?.state?.from || "/")
-    );
+    dispatch(loginUser({ ...controlInput?.values })).then(() => {
+      navigate(location?.state?.from || "/");
+    });
   };
 
   return (

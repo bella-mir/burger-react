@@ -20,8 +20,9 @@ export const ProfilePage = () => {
   const user = useSelector(getUserInfo);
 
   const handleLogout = () => {
-    dispatch(logoutUser({ refreshToken }));
-    navigate("/login");
+    dispatch(logoutUser({ refreshToken })).then(() => {
+      navigate("/login");
+    });
   };
 
   //temporary solution to disable some links

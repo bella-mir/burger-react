@@ -18,6 +18,8 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: {
     [signupUser.fulfilled]: (state, { payload }) => {
+      localStorage.setItem("accessToken", payload.accessToken);
+      localStorage.setItem("refreshToken", payload.refreshToken);
       state.status = "success";
       state.user = payload.user;
       state.errorMessage = "";
@@ -31,6 +33,8 @@ export const authSlice = createSlice({
       state.errorMessage = payload.message;
     },
     [loginUser.fulfilled]: (state, { payload }) => {
+      localStorage.setItem("accessToken", payload.accessToken);
+      localStorage.setItem("refreshToken", payload.refreshToken);
       state.user = payload.user;
       state.status = "success";
       state.errorMessage = "";
@@ -44,6 +48,8 @@ export const authSlice = createSlice({
       state.errorMessage = "";
     },
     [logoutUser.fulfilled]: (state, { payload }) => {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
       state.user = "";
       state.status = "success";
       state.errorMessage = "";

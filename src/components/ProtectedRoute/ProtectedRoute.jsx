@@ -10,7 +10,7 @@ export const ProtectedRoute = ({ onlyUnAuth = false, children }) => {
   if (!user.name && !onlyUnAuth) {
     return <Navigate to="/login" state={{ from: location.pathname }} />;
   } else if (onlyUnAuth && user?.name) {
-    return <Navigate to="/" />;
+    return <Navigate to={location?.state?.from || "/"} />;
   } else {
     return children;
   }

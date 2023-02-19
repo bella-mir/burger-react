@@ -1,10 +1,24 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { API_URL } from "../../utils/app-constants";
+import { request } from "../../utils/app-utils";
+
+export const updatePassword = ({ password, token }) => {
+  return request(`${API_URL}/password-reset/reset`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      password: password,
+      token: token,
+    }),
+  });
+};
 
 export const signupUser = createAsyncThunk(
   "auth/signupUser",
-  async ({ email, password, name }, thunkAPI) => {
-    const response = await fetch(`${API_URL}/auth/register`, {
+  async ({ email, password, name }) => {
+    return request(`${API_URL}/auth/register`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -16,21 +30,13 @@ export const signupUser = createAsyncThunk(
         name,
       }),
     });
-    let data = await response.json();
-    if (response.status === 200) {
-      localStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("refreshToken", data.refreshToken);
-      return { ...data, name: name, email: email };
-    } else {
-      return thunkAPI.rejectWithValue(data);
-    }
   }
 );
 
 export const loginUser = createAsyncThunk(
   "auth/login",
-  async ({ email, password }, thunkAPI) => {
-    const response = await fetch(`${API_URL}/auth/login`, {
+  async ({ email, password }) => {
+    return request(`${API_URL}/auth/login`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -41,21 +47,13 @@ export const loginUser = createAsyncThunk(
         password,
       }),
     });
-    let data = await response.json();
-    if (response.status === 200) {
-      localStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("refreshToken", data.refreshToken);
-      return data;
-    } else {
-      return thunkAPI.rejectWithValue(data);
-    }
   }
 );
 
 export const logoutUser = createAsyncThunk(
   "auth/logout",
   async ({ refreshToken }, thunkAPI) => {
-    const response = await fetch(`${API_URL}/auth/logout`, {
+    return request(`${API_URL}/auth/logout`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -65,41 +63,24 @@ export const logoutUser = createAsyncThunk(
         token: refreshToken,
       }),
     });
-    let data = await response.json();
-    if (response.status === 200) {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      return data;
-    } else {
-      return thunkAPI.rejectWithValue(data);
-    }
   }
 );
 
-export const getUserData = createAsyncThunk(
-  "auth/getUserData",
-  async (thunkAPI) => {
-    const response = await fetch(`${API_URL}/auth/user`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("accessToken"),
-      },
-    });
-    let data = await response.json();
-    if (response.status === 200) {
-      return data;
-    } else {
-      return thunkAPI.rejectWithValue(data);
-    }
-  }
-);
+export const getUserData = createAsyncThunk("auth/getUserData", async () => {
+  return request(`${API_URL}/auth/user`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
+    },
+  });
+});
 
 export const updateUserData = createAsyncThunk(
   "auth/updateUserData",
-  async ({ email, name, password }, thunkAPI) => {
-    const response = await fetch(`${API_URL}/auth/user`, {
+  async ({ email, name, password }) => {
+    return request(`${API_URL}/auth/user`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
@@ -112,11 +93,5 @@ export const updateUserData = createAsyncThunk(
         password,
       }),
     });
-    let data = await response.json();
-    if (response.status === 200) {
-      return data;
-    } else {
-      return thunkAPI.rejectWithValue(data);
-    }
   }
 );
