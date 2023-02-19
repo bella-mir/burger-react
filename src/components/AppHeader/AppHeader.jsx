@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import {
   BurgerIcon,
   ListIcon,
@@ -7,9 +8,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
 import cn from "classnames";
-import styles from "./appHeader.module.css";
-import { NavLink } from "react-router-dom";
 import { getUserInfo } from "../../services/selectors/auth";
+import styles from "./appHeader.module.css";
 
 export const AppHeader = () => {
   const user = useSelector(getUserInfo);

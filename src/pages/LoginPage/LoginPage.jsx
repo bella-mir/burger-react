@@ -1,12 +1,8 @@
 import cn from "classnames";
 import { useForm } from "../../hooks/use-form";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import { getAuthStatus } from "../../services/selectors/auth";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../../services/actions/auth";
-import { Link } from "react-router-dom";
 import {
   Input,
   Button,
@@ -19,18 +15,14 @@ export const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const status = useSelector(getAuthStatus);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(loginUser({ ...controlInput?.values }));
+    dispatch(loginUser({ ...controlInput?.values })).then(
+      (response) =>
+        response.success === true && navigate(location?.state?.from || "/")
+    );
   };
-
-  useEffect(() => {
-    if (status === "success") {
-      navigate(location?.state?.from || "/");
-    }
-  }, [location?.state?.from, navigate, status]);
 
   return (
     <div className={styles.content}>
@@ -64,13 +56,13 @@ export const LoginPage = () => {
         <div>
           Вы - новый пользователь?
           <Link className={styles.link} to="/register">
-            Зарегистрироваться
+            {` Зарегистрироваться`}
           </Link>
         </div>
         <div>
           Забыли пароль?
           <Link className={styles.link} to="/forgot-password">
-            Восстановить пароль
+            {` Восстановить пароль`}
           </Link>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styles from "./order-details.module.css";
-import classnames from "classnames";
+import cn from "classnames";
 import { getOrderNumber, getOrderStatus } from "../../services/selectors/order";
 
 export const OrderDetails = () => {
@@ -17,7 +17,7 @@ export const OrderDetails = () => {
             идентификатор заказа
           </p>
           <div
-            className={classnames(
+            className={cn(
               styles.done,
               "text text_type_main-medium mt-15 mb-15"
             )}

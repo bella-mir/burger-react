@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerIngredients.module.css";
-import classnames from "classnames";
+import cn from "classnames";
 import { BurgerIngredientsGroup } from "./components/BurgerIngredientsGroup";
 import { getAllIngredients } from "../../services/selectors/ingredients";
 
@@ -55,7 +55,7 @@ export const BurgerIngredients = () => {
   }, [burgerData]);
 
   return (
-    <section className={classnames(styles.section, "mr-10")}>
+    <section className={cn(styles.section, "mr-10")}>
       <div className="pt-10 mr-10 pb-10">
         <p className="text text_type_main-large pb-5">Соберите бургер</p>
         <div className={styles.tabs}>

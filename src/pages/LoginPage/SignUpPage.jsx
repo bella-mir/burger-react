@@ -1,11 +1,7 @@
 import { useForm } from "../../hooks/use-form";
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { getAuthStatus } from "../../services/selectors/auth";
-import { useEffect } from "react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import cn from "classnames";
-import { Link } from "react-router-dom";
 import { signupUser } from "../../services/actions/auth";
 import {
   Input,
@@ -17,19 +13,16 @@ import styles from "./loginPage.module.css";
 export const SignUpPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const controlInput = useForm();
-  const status = useSelector(getAuthStatus);
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    dispatch(signupUser({ ...controlInput?.values }));
+    dispatch(signupUser({ ...controlInput?.values })).then(
+      (response) =>
+        response.success === true && navigate(location?.state?.from || "/")
+    );
   };
-
-  useEffect(() => {
-    if (status === "success") {
-      navigate("/");
-    }
-  }, [navigate, status]);
 
   return (
     <div className={styles.content}>
@@ -65,15 +58,14 @@ export const SignUpPage = () => {
           size="medium"
           extraClass="ml-2"
         >
-          Зарегистрироваться
+          {` Зарегистрироваться`}
         </Button>
       </form>
       <div className={cn(styles.questions, "mt-15")}>
         <div>
           Уже зарегистрировались?
           <Link className={styles.link} to="/login">
-            {" "}
-            Войти
+            {` Войти`}
           </Link>
         </div>
       </div>

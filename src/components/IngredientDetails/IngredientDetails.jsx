@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllIngredients } from "../../services/selectors/ingredients";
+import cn from "classnames";
 import styles from "./ingredient-details.module.css";
-import classnames from "classnames";
 
 export const IngredientDetails = () => {
   const allIngredients = useSelector(getAllIngredients);
@@ -31,7 +31,7 @@ export const IngredientDetails = () => {
       />
       <p className="text text_type_main-medium">{ingredient.name}</p>
       <div
-        className={classnames(
+        className={cn(
           styles.composition,
           "text text_type_main-default text_color_inactive pt-8"
         )}

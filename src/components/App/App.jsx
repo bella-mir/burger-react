@@ -1,12 +1,10 @@
 import React, { useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchIngredients } from "../../services/slices/ingredients";
 import { Modal } from "../Modal/Modal";
-import { IngredientDetails } from "../IngredientDetails/IngredientDetails";
-import { Routes, Route, useLocation } from "react-router-dom";
-import { AppHeader } from "../AppHeader/AppHeader";
+import { AppHeader } from "../AppHeader";
 import { ProtectedRoute } from "../ProtectedRoute";
+import { IngredientDetails } from "../IngredientDetails";
 import {
   Main,
   IngredientPage,
@@ -15,10 +13,11 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
   ProfilePage,
+  NotFoundPage,
 } from "../../pages";
-import { NotFoundPage } from "../../pages/NotFoundPage/NotFoundPage";
-import styles from "./app.module.css";
+import { fetchIngredients } from "../../services/slices/ingredients";
 import { getUserData } from "../../services/actions/auth";
+import styles from "./app.module.css";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,9 +26,11 @@ const App = () => {
   const background = location.state && location.state.background;
 
   useEffect(() => {
-    dispatch(getUserData());
     dispatch(fetchIngredients());
-  }, [dispatch]);
+    dispatch(getUserData()).then(
+      (response) => response.success === true && navigate(location.pathname)
+    );
+  }, [dispatch, location.pathname, navigate]);
 
   const handleModalClose = useCallback(
     (isOpen) => {

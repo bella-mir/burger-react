@@ -60,8 +60,7 @@ export const ResetPasswordPage = () => {
         <div>
           Вспомнили пароль?
           <Link className={styles.link} to="/login">
-            {" "}
-            Войти
+          {` Войти`}
           </Link>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import cn from "classnames";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser, updateUserData } from "../../services/actions/auth";
 import { useForm } from "../../hooks/use-form";
@@ -21,7 +21,6 @@ export const ProfilePage = () => {
 
   const handleLogout = () => {
     dispatch(logoutUser({ refreshToken }));
-
     navigate("/login");
   };
 
@@ -30,9 +29,10 @@ export const ProfilePage = () => {
     e.preventDefault();
   };
 
-  const onCancelClick = () => {
+  const onCancelClick = useCallback(() => {
+    controlInput.resetForm();
     enableEditing(false);
-  };
+  }, [controlInput]);
 
   const onSaveClick = (e) => {
     e.preventDefault();

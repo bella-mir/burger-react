@@ -9,8 +9,10 @@ import { IngredientPropTypes } from "../../utils/propTypes";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import styles from "./burgerConstructor.module.css";
-import { deleteFromConstructor } from "../../services/actions/ingredients";
-import { reorderIngredients } from "../../services/actions/ingredients";
+import {
+  deleteFromConstructor,
+  reorderIngredients,
+} from "../../services/actions/ingredients";
 
 export const BurgerElement = ({ index, element }) => {
   const dispatch = useDispatch();
