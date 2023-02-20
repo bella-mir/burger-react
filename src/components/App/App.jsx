@@ -27,14 +27,12 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchIngredients());
-    dispatch(getUserData()).then(
-      (response) => response.success === true && navigate(location.pathname)
-    );
-  }, [dispatch, location.pathname, navigate]);
+    dispatch(getUserData());
+  }, [dispatch]);
 
   const handleModalClose = useCallback(
     (isOpen) => {
-      !isOpen && navigate("/");
+      !isOpen && navigate(-1);
     },
     [navigate]
   );

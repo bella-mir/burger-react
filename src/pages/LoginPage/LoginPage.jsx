@@ -29,7 +29,7 @@ export const LoginPage = () => {
       <form onSubmit={handleLogin} className={styles.form}>
         <Input
           onChange={controlInput.handleChange}
-          value={controlInput?.values?.email}
+          value={controlInput?.values?.email || ''}
           name={"email"}
           placeholder="Email"
           isIcon={true}
@@ -37,7 +37,7 @@ export const LoginPage = () => {
         />
         <PasswordInput
           onChange={controlInput.handleChange}
-          value={controlInput?.values?.password}
+          value={controlInput?.values?.password || ''}
           name={"password"}
           placeholder="Пароль"
           extraClass="mb-2"
