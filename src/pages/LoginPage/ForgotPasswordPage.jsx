@@ -29,10 +29,9 @@ export const ForgotPasswordPage = () => {
       <form onSubmit={handleResetPassword} className={styles.form}>
         <Input
           onChange={controlInput.handleChange}
-          value={controlInput?.values?.email}
+          value={controlInput?.values?.email || ''}
           name={"email"}
           placeholder="Укажите email"
-          isIcon={true}
           extraClass="mb-2"
         />
         <Button

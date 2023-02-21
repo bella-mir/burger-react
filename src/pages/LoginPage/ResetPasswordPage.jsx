@@ -34,17 +34,16 @@ export const ResetPasswordPage = () => {
       <form onSubmit={handleUpdatePassword} className={styles.form}>
         <PasswordInput
           onChange={controlInput.handleChange}
-          value={controlInput?.values?.password}
+          value={controlInput?.values?.password || ""}
           name={"password"}
           placeholder="Введите новый пароль"
           extraClass="mb-2"
         />
         <Input
           onChange={controlInput.handleChange}
-          value={controlInput?.values?.token}
+          value={controlInput?.values?.token || ""}
           name={"token"}
           placeholder="Введите код из письма"
-          isIcon={true}
           extraClass="mb-2"
         />
         <Button
@@ -60,7 +59,7 @@ export const ResetPasswordPage = () => {
         <div>
           Вспомнили пароль?
           <Link className={styles.link} to="/login">
-          {` Войти`}
+            {` Войти`}
           </Link>
         </div>
       </div>

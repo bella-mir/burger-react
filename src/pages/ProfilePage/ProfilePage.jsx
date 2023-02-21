@@ -84,9 +84,7 @@ export const ProfilePage = () => {
           <form onSubmit={onSaveClick} className={styles.form}>
             <Input
               onChange={controlInput.handleChange}
-              value={
-                controlInput.values ? controlInput.values.name : user?.name
-              }
+              value={controlInput.values?.name || user?.name}
               name={"name"}
               placeholder="Имя"
               extraClass="mb-2"
@@ -97,12 +95,9 @@ export const ProfilePage = () => {
             />
             <Input
               onChange={controlInput.handleChange}
-              value={
-                controlInput.values ? controlInput.values.email : user?.email
-              }
+              value={controlInput.values?.email || user?.email}
               name={"email"}
               placeholder="Email"
-              isIcon={true}
               extraClass="mb-2"
               contentEditable={true}
               icon={"EditIcon"}
@@ -118,6 +113,7 @@ export const ProfilePage = () => {
               icon={"EditIcon"}
               disabled={!isEditing}
               onIconClick={onEditClick}
+              value={controlInput?.values?.password || ""}
             />
             <div className={styles.buttons}>
               {isEditing && (

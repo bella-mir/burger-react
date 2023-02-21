@@ -32,7 +32,6 @@ export const LoginPage = () => {
           value={controlInput?.values?.email || ''}
           name={"email"}
           placeholder="Email"
-          isIcon={true}
           extraClass="mb-2"
         />
         <PasswordInput
