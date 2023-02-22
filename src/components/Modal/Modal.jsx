@@ -1,7 +1,6 @@
 import React from "react";
 import * as ReactDOM from "react-dom";
 import styles from "./modal.module.css";
-import classnames from "classnames";
 import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
 import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -13,7 +12,7 @@ export const Modal = ({ header, setIsOpen, children }) => {
     <>
       <ModalOverlay setIsOpen={setIsOpen} />
       <div
-        className={classnames(styles.modal)}
+        className={styles.modal}
         tabIndex="0"
         onClick={(e) => e.stopPropagation()}
       >

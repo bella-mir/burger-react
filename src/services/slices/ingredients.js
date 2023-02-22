@@ -5,6 +5,7 @@ import {
   addToConstructor,
   deleteFromConstructor,
   reorderIngredients,
+  deleteAllFromConstructor,
 } from "../actions/ingredients";
 import { INGREDIENTS_STATE_KEY } from "../services-constants";
 
@@ -56,6 +57,9 @@ export const ingredientsSlice = createSlice({
             state.ingredientsInConstructor.ingredients.filter(
               (ingredient) => ingredient.elementId !== action.payload
             ));
+    });
+    builder.addCase(deleteAllFromConstructor, (state, action) => {
+      state.ingredientsInConstructor = { bun: {}, ingredients: [] };
     });
     builder.addCase(reorderIngredients, (state, action) => {
       const newOrderedData = state.ingredientsInConstructor.ingredients;

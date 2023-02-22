@@ -4,16 +4,16 @@
   align-items: center;
   background-color: #1c1c21;
   margin: 0;
+  width: 100%;
 }
 
 .menu {
   margin: 0 auto;
   width: 1280px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
-  display: flex;
-  flex-direction: row;
-  gap: 50px;
-  justify-content: space-between;
+  justify-items: center;
 }
 
 .menuElement {
@@ -23,14 +23,13 @@
   gap: 9px;
 }
 
-.menuGroup{
+.menuGroup {
   display: flex;
   flex-direction: row;
   text-decoration: none;
   gap: 50px;
-
 }
 
-.active {
-  color: "#F2F2F3";
+.navDisabled {
+  cursor: not-allowed;
 }

@@ -1,0 +1,47 @@
+.wrapper {
+  max-width: 1200px;
+  display: flex;
+  padding-top: 200px;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav {
+  line-height: 60px;
+}
+
+.comment {
+  max-width: 320px;
+  color: rgba(133, 133, 173, 1);
+}
+
+.nav {
+  text-decoration: none;
+  color: rgba(133, 133, 173, 1);
+}
+
+.navActive {
+  color: rgba(242, 242, 243, 1);
+}
+
+.navDisabled {
+  cursor: not-allowed;
+}
+
+.buttons {
+  width: 480px;
+  display: flex;
+  justify-content: flex-end;
+}
