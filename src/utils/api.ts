@@ -1,4 +1,4 @@
-import { IIngredientProp, IUpdatePasswordProps } from "../services/types";
+import { IUpdatePasswordProps } from "../services/types";
 import { API_URL } from "./app-constants";
 import { request } from "./app-utils";
 

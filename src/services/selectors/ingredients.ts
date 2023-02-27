@@ -24,7 +24,10 @@ export const getIngredientsInConstructor = createSelector(
   (state) => state.ingredientsInConstructor
 );
 
-export const getCountIngredients = (id: string, type: string) =>
+export const getCountIngredients = (
+  id: string,
+  type: "bun" | "main" | "sauce"
+) =>
   createSelector(getIngredientsState, (state) => {
     if (type !== "bun") {
       return state.ingredientsInConstructor.ingredients?.filter(

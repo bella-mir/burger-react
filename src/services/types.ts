@@ -10,7 +10,7 @@ export interface IIngredientProp {
   proteins: number;
   fat: number;
   carbohydrates: number;
-  type: string;
+  type: "bun" | "main" | "sauce";
 }
 
 export interface ILoginProps {

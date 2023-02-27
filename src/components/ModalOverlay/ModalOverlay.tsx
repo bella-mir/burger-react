@@ -1,7 +1,11 @@
 import React, { useCallback, useEffect } from "react";
 import styles from "./modal-overlay.module.scss";
 
-export const ModalOverlay = ({ setIsOpen }: any) => {
+interface IModalOverlay {
+  setIsOpen: (set: boolean) => void;
+}
+
+export const ModalOverlay = ({ setIsOpen }: IModalOverlay) => {
   const escFunction = useCallback(
     (event: any) => {
       if (event.key === "Escape") {

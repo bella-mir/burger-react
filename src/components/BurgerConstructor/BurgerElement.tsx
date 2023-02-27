@@ -78,7 +78,7 @@ export const BurgerElement = ({ index, element }: IBurgerElementProps) => {
       className={cn(styles.element, "pb-4", isDragging && styles.dragged)}
       ref={divRef}
       data-handler-id={handlerID}
-      key={index}
+      key={element.elementId}
     >
       <DragIcon type="primary" />
       <ConstructorElement
