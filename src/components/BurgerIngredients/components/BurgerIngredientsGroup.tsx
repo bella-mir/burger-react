@@ -34,7 +34,7 @@ export const BurgerIngredientsGroup = ({
               ingredient={element}
               id={element._id}
               onClick={() => {
-                dispatch(selectIngredient({element}));
+                dispatch(selectIngredient(element));
               }}
             />
           </Link>

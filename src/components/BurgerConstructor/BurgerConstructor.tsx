@@ -37,7 +37,7 @@ export const BurgerConstructor = () => {
   const [, dropTarget] = useDrop({
     accept: "ingredient",
     drop(item: IIngredientProp) {
-      dispatch(addToConstructor({ item, elementId: nanoid() }));
+      dispatch(addToConstructor({ ...item, elementId: nanoid() }));
     },
     collect: (monitor) => ({
       isHover: monitor.isOver(),
@@ -114,11 +114,7 @@ export const BurgerConstructor = () => {
                 selectedIngredients.ingredients.length > 0 ? (
                   selectedIngredients.ingredients.map(
                     (element: IIngredientProp, index: number) => (
-                      <BurgerElement
-                        key={element.elementId}
-                        element={element}
-                        index={index}
-                      />
+                      <BurgerElement element={element} index={index} />
                     )
                   )
                 ) : (

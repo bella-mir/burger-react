@@ -24,7 +24,7 @@ export const BurgerElement = ({ index, element }: IBurgerElementProps) => {
   const id = element.elementId;
 
   const divRef = useRef<HTMLDivElement>(null);
-
+  //@ts-ignore
   const [{ handlerID }, drop] = useDrop({
     accept: "card",
     collect(monitor) {
@@ -32,6 +32,7 @@ export const BurgerElement = ({ index, element }: IBurgerElementProps) => {
         handlerID: monitor.getHandlerId(),
       };
     },
+    //@ts-ignore
     hover(item: { index: number }, monitor) {
       if (!divRef.current) {
         return;
@@ -79,12 +80,12 @@ export const BurgerElement = ({ index, element }: IBurgerElementProps) => {
       data-handler-id={handlerID}
       key={index}
     >
-      <DragIcon type='primary' />
+      <DragIcon type="primary" />
       <ConstructorElement
         text={element.name}
         price={element.price}
         thumbnail={element.image_mobile}
-        handleClose={() => dispatch(deleteFromConstructor(element.elementId))}
+        handleClose={() => dispatch(deleteFromConstructor(element))}
       />
     </div>
   );

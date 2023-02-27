@@ -27,9 +27,7 @@ const App = () => {
   const background = location.state && location.state.background;
 
   useEffect(() => {
-    //@ts-ignore
     dispatch(fetchIngredients());
-    //@ts-ignore
     dispatch(getUserData());
   }, [dispatch]);
 
@@ -81,7 +79,7 @@ const App = () => {
         <Route
           path="/profile"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth={false}>
               <ProfilePage />
             </ProtectedRoute>
           }

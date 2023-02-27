@@ -50,9 +50,8 @@ export interface IIngredientsState {
   selectedIngredient?: IIngredientProp | null;
   ingredientsInConstructor: {
     bun?: IIngredientProp | null;
-    ingredients?: IIngredientProp[];
+    ingredients?: IConstructorProps[];
   };
-  order: any;
 }
 
 export interface IOrderState {
