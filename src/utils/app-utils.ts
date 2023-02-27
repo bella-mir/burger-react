@@ -1,4 +1,4 @@
-export const checkResponse = (res: any) => {
+export const checkResponse = (res: Response) => {
   return res.ok
     ? res.json()
     : res.json().then((err: any) => Promise.reject(err));

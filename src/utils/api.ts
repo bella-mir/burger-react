@@ -1,6 +1,6 @@
 import { IUpdatePasswordProps } from "../services/types";
 import { API_URL } from "./app-constants";
-import { request } from "./app-utils";
+import { checkResponse, request } from "./app-utils";
 
 export const loadIngerdients = () => {
   return request(`${API_URL}/ingredients`);
@@ -43,12 +43,6 @@ export const updatePassword = ({ password, token }: IUpdatePasswordProps) => {
   });
 };
 
-const checkReponse = (res: Response) => {
-  return res.ok
-    ? res.json()
-    : res.json().then((err: any) => Promise.reject(err));
-};
-
 export const refreshToken = () => {
   return fetch(`${API_URL}/auth/token`, {
     method: "POST",
@@ -58,13 +52,13 @@ export const refreshToken = () => {
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
     }),
-  }).then(checkReponse);
+  }).then(checkResponse);
 };
 
 export const fetchWithRefresh = async (url: string, options: any) => {
   try {
     const res = await fetch(url, options);
-    return await checkReponse(res);
+    return await checkResponse(res);
   } catch (err: any) {
     if (err.message === "jwt expired") {
       const refreshData = await refreshToken();
@@ -75,7 +69,7 @@ export const fetchWithRefresh = async (url: string, options: any) => {
       localStorage.setItem("accessToken", refreshData.accessToken);
       options.headers.authorization = refreshData.accessToken;
       const res = await fetch(url, options);
-      return await checkReponse(res);
+      return await checkResponse(res);
     } else {
       return Promise.reject(err);
     }

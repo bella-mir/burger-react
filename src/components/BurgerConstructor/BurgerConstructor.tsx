@@ -114,7 +114,11 @@ export const BurgerConstructor = () => {
                 selectedIngredients.ingredients.length > 0 ? (
                   selectedIngredients.ingredients.map(
                     (element: IIngredientProp, index: number) => (
-                      <BurgerElement element={element} index={index} />
+                      <BurgerElement
+                        element={element}
+                        index={index}
+                        key={element.elementId}
+                      />
                     )
                   )
                 ) : (
