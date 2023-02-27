@@ -2,13 +2,21 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { BurgerIngredient } from "./BurgerIngredient";
-import PropTypes from "prop-types";
-import { IngredientPropTypes } from "../../../utils/propTypes";
-import styles from "./burgerIngredientsGroup.module.css";
+import styles from "./burgerIngredientsGroup.module.scss";
+import { AppDispatch } from "../../../services/store";
+import { IIngredientProp } from "../../../services/types";
 import { selectIngredient } from "../../../services/actions/ingredients";
 
-export const BurgerIngredientsGroup = ({ title, data }) => {
-  const dispatch = useDispatch();
+interface IBurgerIngredientsProps {
+  title: string;
+  data: IIngredientProp[];
+}
+
+export const BurgerIngredientsGroup = ({
+  title,
+  data,
+}: IBurgerIngredientsProps) => {
+  const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
 
   return (
@@ -24,9 +32,9 @@ export const BurgerIngredientsGroup = ({ title, data }) => {
           >
             <BurgerIngredient
               ingredient={element}
-              key={element._id}
+              id={element._id}
               onClick={() => {
-                dispatch(selectIngredient(element));
+                dispatch(selectIngredient({element}));
               }}
             />
           </Link>
@@ -34,9 +42,4 @@ export const BurgerIngredientsGroup = ({ title, data }) => {
       </div>
     </div>
   );
-};
-
-BurgerIngredientsGroup.propTypes = {
-  title: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(IngredientPropTypes).isRequired,
 };

@@ -1,16 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ORDER_STATE_KEY } from "../services-constants";
 import { orderCheckout } from "../../utils/api";
+import { IOrderState } from "../types";
 
-const initialState = {
-  order: {},
+const initialState: IOrderState = {
+  order: null,
   status: "",
-  error: "",
 };
 
 export const postOrder = createAsyncThunk(
   `${ORDER_STATE_KEY}/postOrder`,
-  async (selectedIngredientsIds) => {
+  async (selectedIngredientsIds: string[]) => {
     const response = await orderCheckout(selectedIngredientsIds);
     return response.order;
   }
@@ -30,7 +30,6 @@ export const orderSlice = createSlice({
     });
     builder.addCase(postOrder.rejected, (state, action) => {
       state.status = "failed";
-      state.error = action.error.message;
     });
   },
 });

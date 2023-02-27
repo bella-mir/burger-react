@@ -1,5 +1,5 @@
 import { IngredientDetails } from "../../components/IngredientDetails";
-import styles from "./ingredient-page.module.css";
+import styles from "./ingredient-page.module.scss";
 
 export const IngredientPage = () => {
   return (

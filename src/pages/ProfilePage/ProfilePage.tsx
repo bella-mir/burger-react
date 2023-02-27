@@ -8,15 +8,16 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./profilePage.module.css";
+import styles from "./profilePage.module.scss";
 import { getUserInfo } from "../../services/selectors/auth";
+import { AppDispatch } from "../../services/store";
 
 export const ProfilePage = () => {
   const controlInput = useForm();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [isEditing, enableEditing] = useState(false);
-  const refreshToken = localStorage.getItem("refreshToken");
+  const refreshToken: string | null = localStorage.getItem("refreshToken");
   const user = useSelector(getUserInfo);
 
   const handleLogout = () => {
@@ -26,7 +27,7 @@ export const ProfilePage = () => {
   };
 
   //temporary solution to disable some links
-  const handleDisabledClick = (e) => {
+  const handleDisabledClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
   };
 
@@ -35,7 +36,7 @@ export const ProfilePage = () => {
     enableEditing(false);
   }, [controlInput]);
 
-  const onSaveClick = (e) => {
+  const onSaveClick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(updateUserData({ ...controlInput?.values }));
     enableEditing(false);
@@ -71,6 +72,7 @@ export const ProfilePage = () => {
             История заказов
           </NavLink>
           <NavLink
+            to=""
             className={cn(styles.nav, "text text_type_main-medium")}
             onClick={handleLogout}
           >

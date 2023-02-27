@@ -17,21 +17,24 @@ import {
 } from "../../pages";
 import { fetchIngredients } from "../../services/slices/ingredients";
 import { getUserData } from "../../services/actions/auth";
-import styles from "./app.module.css";
+import styles from "./app.module.scss";
+import { AppDispatch } from "../../services/store";
 
 const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
 
   useEffect(() => {
+    //@ts-ignore
     dispatch(fetchIngredients());
+    //@ts-ignore
     dispatch(getUserData());
   }, [dispatch]);
 
   const handleModalClose = useCallback(
-    (isOpen) => {
+    (isOpen: boolean) => {
       !isOpen && navigate(-1);
     },
     [navigate]
@@ -83,11 +86,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          exact
-          path="/ingredients/:ingredientId"
-          element={<IngredientPage />}
-        />
+        <Route path="/ingredients/:ingredientId" element={<IngredientPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       {background && (

@@ -8,15 +8,16 @@ import {
   Button,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./loginPage.module.css";
+import styles from "./loginPage.module.scss";
+import { AppDispatch } from "../../services/store";
 
 export const LoginPage = () => {
   const controlInput = useForm();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(loginUser({ ...controlInput?.values })).then(() => {
       navigate(location?.state?.from || "/");

@@ -9,14 +9,14 @@ import {
 import { useSelector } from "react-redux";
 import cn from "classnames";
 import { getUserInfo } from "../../services/selectors/auth";
-import styles from "./appHeader.module.css";
+import styles from "./appHeader.module.scss";
 
 export const AppHeader = () => {
   const user = useSelector(getUserInfo);
   const [menuTitle, setMenuTitle] = useState("Войти");
 
   useEffect(() => {
-    if (user.name) {
+    if (user?.name) {
       setMenuTitle("Личный кабинет");
     } else {
       setMenuTitle("Войти");
@@ -24,7 +24,7 @@ export const AppHeader = () => {
   }, [user]);
 
   //temporary solution to disable some links
-  const handleDisabledClick = (e) => {
+  const handleDisabledClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
   };
 

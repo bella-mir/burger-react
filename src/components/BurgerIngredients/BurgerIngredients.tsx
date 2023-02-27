@@ -1,24 +1,25 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./burgerIngredients.module.css";
+import styles from "./burgerIngredients.module.scss";
 import cn from "classnames";
 import { BurgerIngredientsGroup } from "./components/BurgerIngredientsGroup";
 import { getAllIngredients } from "../../services/selectors/ingredients";
+import { IIngredientProp } from "../../services/types";
 
 export const BurgerIngredients = () => {
   const burgerData = useSelector(getAllIngredients);
-  const [type, setType] = React.useState("bun");
-  const [buns, setBuns] = React.useState(null);
-  const [main, setMain] = React.useState(null);
-  const [sauces, setSauces] = React.useState(null);
+  const [type, setType] = React.useState<string>("bun");
+  const [buns, setBuns] = React.useState<IIngredientProp[] | null>(null);
+  const [main, setMain] = React.useState<IIngredientProp[] | null>(null);
+  const [sauces, setSauces] = React.useState<IIngredientProp[] | null>(null);
 
-  const refContainer = useRef(null);
-  const refBuns = useRef(null);
-  const refSauces = useRef(null);
-  const refMain = useRef(null);
+  const refContainer = useRef<HTMLDivElement>(null);
+  const refBuns = useRef<HTMLDivElement>(null);
+  const refSauces = useRef<HTMLDivElement>(null);
+  const refMain = useRef<HTMLDivElement>(null);
 
-  const scrollHandler = (e) => {
+  const scrollHandler = (e: React.UIEvent<HTMLDivElement>) => {
     let currentTab = "bun";
     if (refContainer.current && refBuns.current && refSauces.current) {
       currentTab =
@@ -34,7 +35,7 @@ export const BurgerIngredients = () => {
     setType(currentTab);
   };
 
-  const setTab = (tab) => {
+  const setTab = (tab: string) => {
     setType(tab);
     const element =
       tab === "bun"

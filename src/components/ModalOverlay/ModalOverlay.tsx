@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect } from "react";
-import PropTypes from "prop-types";
-import styles from "./modal-overlay.module.css";
+import styles from "./modal-overlay.module.scss";
 
-export const ModalOverlay = ({ setIsOpen }) => {
+export const ModalOverlay = ({ setIsOpen }: any) => {
   const escFunction = useCallback(
-    (event) => {
+    (event: any) => {
       if (event.key === "Escape") {
         setIsOpen(false);
       }
@@ -28,11 +27,7 @@ export const ModalOverlay = ({ setIsOpen }) => {
         setIsOpen(false);
       }}
       onKeyDown={escFunction}
-      tabIndex="0"
+      tabIndex={0}
     ></div>
   );
-};
-
-ModalOverlay.propTypes = {
-  setIsOpen: PropTypes.func.isRequired,
 };

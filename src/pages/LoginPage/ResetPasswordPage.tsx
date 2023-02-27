@@ -7,27 +7,23 @@ import {
   Button,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { updatePassword } from "../../utils/api";
-import styles from "./loginPage.module.css";
+import styles from "./loginPage.module.scss";
+import { AppDispatch } from "../../services/store";
+import { updatePassword } from "../../services/actions/auth";
 
 export const ResetPasswordPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const controlInput = useForm();
   const location = useLocation();
 
-  const handleUpdatePassword = (e) => {
+  const handleUpdatePassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     controlInput?.values &&
-      dispatch(
-        updatePassword({
-          email: controlInput.values.password,
-          token: controlInput.values.token,
-        })
-      );
+      dispatch(updatePassword({ ...controlInput?.values }));
   };
 
   return location.state?.from !== "/forgot-password" ? (
-    <Navigate to={0} />
+    <Navigate to={"-1"} />
   ) : (
     <div className={styles.content}>
       <div className="text text_type_main-medium">Восстановление пароля</div>

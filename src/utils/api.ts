@@ -1,3 +1,4 @@
+import { IIngredientProp, IUpdatePasswordProps } from "../services/types";
 import { API_URL } from "./app-constants";
 import { request } from "./app-utils";
 
@@ -5,7 +6,7 @@ export const loadIngerdients = () => {
   return request(`${API_URL}/ingredients`);
 };
 
-export const orderCheckout = (ingredients) => {
+export const orderCheckout = (ingredients: string[]) => {
   return request(`${API_URL}/orders`, {
     method: "POST",
     headers: {
@@ -17,7 +18,7 @@ export const orderCheckout = (ingredients) => {
   });
 };
 
-export const resetPassword = (email) => {
+export const resetPassword = (email: string) => {
   return request(`${API_URL}/password-reset`, {
     method: "POST",
     headers: {
@@ -29,7 +30,7 @@ export const resetPassword = (email) => {
   });
 };
 
-export const updatePassword = ({ password, token }) => {
+export const updatePassword = ({ password, token }: IUpdatePasswordProps) => {
   return request(`${API_URL}/password-reset/reset`, {
     method: "POST",
     headers: {
@@ -42,8 +43,10 @@ export const updatePassword = ({ password, token }) => {
   });
 };
 
-const checkReponse = (res) => {
-  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+const checkReponse = (res: Response) => {
+  return res.ok
+    ? res.json()
+    : res.json().then((err: any) => Promise.reject(err));
 };
 
 export const refreshToken = () => {
@@ -58,11 +61,11 @@ export const refreshToken = () => {
   }).then(checkReponse);
 };
 
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (url: string, options: any) => {
   try {
     const res = await fetch(url, options);
     return await checkReponse(res);
-  } catch (err) {
+  } catch (err: any) {
     if (err.message === "jwt expired") {
       const refreshData = await refreshToken();
       if (!refreshData.success) {

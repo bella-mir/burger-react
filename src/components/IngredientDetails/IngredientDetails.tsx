@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllIngredients } from "../../services/selectors/ingredients";
 import cn from "classnames";
-import styles from "./ingredient-details.module.css";
+import styles from "./ingredient-details.module.scss";
+import { IIngredientProp } from "../../services/types";
 
 export const IngredientDetails = () => {
   const allIngredients = useSelector(getAllIngredients);
   const { ingredientId } = useParams();
 
-  const [ingredient, setIngredient] = useState(null);
+  const [ingredient, setIngredient] = useState<IIngredientProp | null>(null);
 
   useEffect(() => {
     const ingredient = allIngredients.filter(

@@ -1,19 +1,24 @@
 import React from "react";
 import * as ReactDOM from "react-dom";
-import styles from "./modal.module.css";
+import styles from "./modal.module.scss";
 import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
-import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const modalRoot = document.getElementById("root");
 
-export const Modal = ({ header, setIsOpen, children }) => {
+type TModalProps = {
+  setIsOpen: (isOpen: boolean) => void;
+  header: string;
+  children: React.ReactNode;
+};
+
+export const Modal = ({ header, setIsOpen, children }: TModalProps) => {
   return ReactDOM.createPortal(
     <>
       <ModalOverlay setIsOpen={setIsOpen} />
       <div
         className={styles.modal}
-        tabIndex="0"
+        tabIndex={0}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="pl-10 pr-10 pb-15 pt-10">
@@ -21,6 +26,7 @@ export const Modal = ({ header, setIsOpen, children }) => {
             <p className="text text_type_main-large">{header}</p>
             <div className={styles.close}>
               <CloseIcon
+                type="primary"
                 onClick={() => {
                   setIsOpen(false);
                 }}
@@ -31,12 +37,6 @@ export const Modal = ({ header, setIsOpen, children }) => {
         </div>
       </div>
     </>,
-    modalRoot
+    modalRoot as HTMLDivElement
   );
-};
-
-Modal.propTypes = {
-  header: PropTypes.string,
-  setIsOpen: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
 };

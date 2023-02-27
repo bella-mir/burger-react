@@ -9,8 +9,7 @@ import { useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { Modal } from "../Modal/Modal";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
-import classnames from "classnames";
-import styles from "./burgerConstructor.module.css";
+import cn from "classnames";
 import { useSelector } from "react-redux";
 import {
   addToConstructor,
@@ -22,9 +21,12 @@ import bun from "../../../src/asserts/loading.svg";
 import { nanoid } from "@reduxjs/toolkit";
 import { BurgerElement } from "./BurgerElement";
 import { getUserInfo } from "../../services/selectors/auth";
+import { IIngredientProp } from "../../services/types";
+import { AppDispatch } from "../../services/store";
+import styles from "./burgerConstructor.module.scss";
 
 export const BurgerConstructor = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const user = useSelector(getUserInfo);
   const navigate = useNavigate();
   const isAuth = Boolean(user?.name);
@@ -34,8 +36,8 @@ export const BurgerConstructor = () => {
 
   const [, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item) {
-      dispatch(addToConstructor({ ...item, elementId: nanoid() }));
+    drop(item: IIngredientProp) {
+      dispatch(addToConstructor({ item, elementId: nanoid() }));
     },
     collect: (monitor) => ({
       isHover: monitor.isOver(),
@@ -43,26 +45,35 @@ export const BurgerConstructor = () => {
   });
 
   useEffect(() => {
-    if (selectedIngredients.bun.name) {
+    if (selectedIngredients?.bun?.name) {
       setIsDisabled(() => false);
     }
-  }, [selectedIngredients.bun.name]);
+  }, [selectedIngredients?.bun?.name]);
 
   const selectedIngredientsIds =
     selectedIngredients.ingredients &&
-    selectedIngredients.ingredients.map((ingredient) => ingredient._id);
+    selectedIngredients.ingredients.map(
+      (ingredient: IIngredientProp) => ingredient._id
+    );
 
   const sum =
-    selectedIngredients.ingredients.reduce((accumulator, element) => {
-      return accumulator + element.price;
-    }, 0) + (selectedIngredients.bun?.price * 2 || 0);
+    selectedIngredients.ingredients &&
+    selectedIngredients.ingredients.reduce(
+      (accumulator: number, element: IIngredientProp) => {
+        return accumulator + element.price;
+      },
+      0
+    ) +
+      (selectedIngredients?.bun?.price
+        ? selectedIngredients?.bun?.price * 2
+        : 0);
 
   const redirectToLogin = () => {
     navigate("/login");
   };
 
   const handleClick = () => {
-    if (isAuth) {
+    if (isAuth && selectedIngredientsIds) {
       setIsOpen(true);
       dispatch(postOrder(selectedIngredientsIds));
       dispatch(deleteAllFromConstructor());
@@ -73,38 +84,46 @@ export const BurgerConstructor = () => {
 
   return (
     <div ref={dropTarget}>
-      <section className={classnames(styles.section, "pt-25 pr-2")}>
-        {selectedIngredients.ingredients.length > 0 ||
-        selectedIngredients.bun._id ? (
+      <section className={cn(styles.section, "pt-25 pr-2")}>
+        {(selectedIngredients?.ingredients &&
+          selectedIngredients?.ingredients?.length > 0) ||
+        selectedIngredients?.bun?._id ? (
           <>
             <div className={styles.main}>
               <ConstructorElement
                 type="top"
                 isLocked={true}
                 text={
-                  selectedIngredients.bun.name
+                  selectedIngredients?.bun?.name
                     ? `${selectedIngredients.bun.name} (верх)`
                     : "Не забудьте выбрать булочку"
                 }
-                price={selectedIngredients.bun.price}
+                price={
+                  selectedIngredients?.bun?.price
+                    ? selectedIngredients?.bun?.price
+                    : 0
+                }
                 thumbnail={
-                  selectedIngredients.bun.image_mobile
+                  selectedIngredients?.bun?.image_mobile
                     ? selectedIngredients.bun.image_mobile
                     : bun
                 }
               />
               <div className={styles.inner}>
-                {selectedIngredients.ingredients.length > 0 ? (
-                  selectedIngredients.ingredients.map((element, index) => (
-                    <BurgerElement
-                      key={element.elementId}
-                      element={element}
-                      index={index}
-                    />
-                  ))
+                {selectedIngredients.ingredients &&
+                selectedIngredients.ingredients.length > 0 ? (
+                  selectedIngredients.ingredients.map(
+                    (element: IIngredientProp, index: number) => (
+                      <BurgerElement
+                        key={element.elementId}
+                        element={element}
+                        index={index}
+                      />
+                    )
+                  )
                 ) : (
                   <p
-                    className={classnames(
+                    className={cn(
                       styles.emptyArea,
                       "text text_type_main-medium pb-6"
                     )}
@@ -118,21 +137,25 @@ export const BurgerConstructor = () => {
                 type="bottom"
                 isLocked={true}
                 text={
-                  selectedIngredients.bun.name
+                  selectedIngredients?.bun?.name
                     ? `${selectedIngredients.bun.name} (низ)`
                     : "Не забудьте выбрать булочку"
                 }
-                price={selectedIngredients.bun.price}
+                price={
+                  selectedIngredients?.bun?.price
+                    ? selectedIngredients?.bun?.price
+                    : 0
+                }
                 thumbnail={
-                  selectedIngredients.bun.image_mobile
+                  selectedIngredients?.bun?.image_mobile
                     ? selectedIngredients.bun.image_mobile
                     : bun
                 }
               />
             </div>
 
-            <section className={classnames(styles.count, "pt-10")}>
-              <div className={classnames(styles.sum, "pr-10")}>
+            <section className={cn(styles.count, "pt-10")}>
+              <div className={cn(styles.sum, "pr-10")}>
                 <p className="text text_type_digits-medium">{sum}</p>
                 <CurrencyIcon type="primary" />
               </div>
@@ -149,10 +172,7 @@ export const BurgerConstructor = () => {
           </>
         ) : (
           <p
-            className={classnames(
-              styles.emptyArea,
-              "text text_type_main-medium pb-6"
-            )}
+            className={cn(styles.emptyArea, "text text_type_main-medium pb-6")}
           >
             Переместите сюда ингредиенты для бургера
           </p>

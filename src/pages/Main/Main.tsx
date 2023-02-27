@@ -5,8 +5,8 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { useSelector } from "react-redux";
 import { BurgerConstructor } from "../../components/BurgerConstructor/BurgerConstructor";
 import { BurgerIngredients } from "../../components/BurgerIngredients/BurgerIngredients";
-import styles from "./main.module.css";
 import { getStatus } from "../../services/selectors/ingredients";
+import styles from "./main.module.scss";
 
 export const Main = () => {
   const status = useSelector(getStatus);

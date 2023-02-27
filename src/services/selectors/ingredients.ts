@@ -1,7 +1,8 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { INGREDIENTS_STATE_KEY } from "../services-constants";
+import { RootState } from "../store";
 
-const getIngredientsState = (state) => state[INGREDIENTS_STATE_KEY];
+const getIngredientsState = (state: RootState) => state[INGREDIENTS_STATE_KEY];
 
 export const getAllIngredients = createSelector(
   getIngredientsState,
@@ -23,13 +24,13 @@ export const getIngredientsInConstructor = createSelector(
   (state) => state.ingredientsInConstructor
 );
 
-export const getCountIngredients = (id, type) =>
+export const getCountIngredients = (id: string, type: string) =>
   createSelector(getIngredientsState, (state) => {
     if (type !== "bun") {
-      return state.ingredientsInConstructor.ingredients.filter(
+      return state.ingredientsInConstructor.ingredients?.filter(
         (ingredient) => ingredient._id === id
       ).length;
     } else {
-      return state.ingredientsInConstructor.bun._id === id ? 2 : 0;
+      return state?.ingredientsInConstructor?.bun?._id === id ? 2 : 0;
     }
   });

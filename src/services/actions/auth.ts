@@ -1,23 +1,32 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { API_URL } from "../../utils/app-constants";
 import { request } from "../../utils/app-utils";
+import {
+  ILoginProps,
+  ISignupProps,
+  IUpdatePasswordProps,
+  IUserState,
+} from "../types";
 
-export const updatePassword = ({ password, token }) => {
-  return request(`${API_URL}/password-reset/reset`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      password: password,
-      token: token,
-    }),
-  });
-};
+export const updatePassword = createAsyncThunk(
+  "auth/updatePassword",
+  async ({ password, token }: IUpdatePasswordProps) => {
+    return request(`${API_URL}/password-reset/reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password: password,
+        token: token,
+      }),
+    });
+  }
+);
 
 export const signupUser = createAsyncThunk(
   "auth/signupUser",
-  async ({ email, password, name }) => {
+  async ({ email, password, name }: ISignupProps) => {
     return request(`${API_URL}/auth/register`, {
       method: "POST",
       headers: {
@@ -35,7 +44,7 @@ export const signupUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   "auth/login",
-  async ({ email, password }) => {
+  async ({ email, password }: ILoginProps) => {
     return request(`${API_URL}/auth/login`, {
       method: "POST",
       headers: {
@@ -52,7 +61,7 @@ export const loginUser = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
   "auth/logout",
-  async ({ refreshToken }, thunkAPI) => {
+  async ({ refreshToken }: { refreshToken: string | null }, thunkAPI) => {
     return request(`${API_URL}/auth/logout`, {
       method: "POST",
       headers: {
@@ -79,7 +88,7 @@ export const getUserData = createAsyncThunk("auth/getUserData", async () => {
 
 export const updateUserData = createAsyncThunk(
   "auth/updateUserData",
-  async ({ email, name, password }) => {
+  async ({ email, name, password }: IUserState) => {
     return request(`${API_URL}/auth/user`, {
       method: "PATCH",
       headers: {

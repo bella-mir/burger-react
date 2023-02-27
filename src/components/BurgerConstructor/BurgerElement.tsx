@@ -5,20 +5,25 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrop, useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
-import { IngredientPropTypes } from "../../utils/propTypes";
-import PropTypes from "prop-types";
-import classnames from "classnames";
-import styles from "./burgerConstructor.module.css";
+import cn from "classnames";
+import styles from "./burgerConstructor.module.scss";
 import {
   deleteFromConstructor,
   reorderIngredients,
 } from "../../services/actions/ingredients";
+import { IConstructorProps } from "../../services/types";
+import { AppDispatch } from "../../services/store";
 
-export const BurgerElement = ({ index, element }) => {
-  const dispatch = useDispatch();
+interface IBurgerElementProps {
+  index: number;
+  element: IConstructorProps;
+}
+
+export const BurgerElement = ({ index, element }: IBurgerElementProps) => {
+  const dispatch = useDispatch<AppDispatch>();
   const id = element.elementId;
 
-  const divRef = useRef(null);
+  const divRef = useRef<HTMLDivElement>(null);
 
   const [{ handlerID }, drop] = useDrop({
     accept: "card",
@@ -27,7 +32,7 @@ export const BurgerElement = ({ index, element }) => {
         handlerID: monitor.getHandlerId(),
       };
     },
-    hover(item, monitor) {
+    hover(item: { index: number }, monitor) {
       if (!divRef.current) {
         return;
       }
@@ -69,16 +74,12 @@ export const BurgerElement = ({ index, element }) => {
 
   return (
     <div
-      className={classnames(
-        styles.element,
-        "pb-4",
-        isDragging && styles.dragged
-      )}
+      className={cn(styles.element, "pb-4", isDragging && styles.dragged)}
       ref={divRef}
       data-handler-id={handlerID}
-      index={index}
+      key={index}
     >
-      <DragIcon />
+      <DragIcon type='primary' />
       <ConstructorElement
         text={element.name}
         price={element.price}
@@ -87,9 +88,4 @@ export const BurgerElement = ({ index, element }) => {
       />
     </div>
   );
-};
-
-BurgerElement.propTypes = {
-  index: PropTypes.number.isRequired,
-  element: IngredientPropTypes.isRequired,
 };

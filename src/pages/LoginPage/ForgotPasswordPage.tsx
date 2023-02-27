@@ -5,7 +5,7 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./loginPage.module.css";
+import styles from "./loginPage.module.scss";
 import { resetPassword } from "../../utils/api";
 
 export const ForgotPasswordPage = () => {
@@ -13,7 +13,7 @@ export const ForgotPasswordPage = () => {
   const location = useLocation();
   const controlInput = useForm();
 
-  const handleResetPassword = (e) => {
+  const handleResetPassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     controlInput?.values.email &&
       resetPassword(controlInput.values.email).then(
@@ -29,7 +29,7 @@ export const ForgotPasswordPage = () => {
       <form onSubmit={handleResetPassword} className={styles.form}>
         <Input
           onChange={controlInput.handleChange}
-          value={controlInput?.values?.email || ''}
+          value={controlInput?.values?.email || ""}
           name={"email"}
           placeholder="Укажите email"
           extraClass="mb-2"
