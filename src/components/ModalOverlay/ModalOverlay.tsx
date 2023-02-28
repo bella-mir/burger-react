@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, KeyboardEvent } from "react";
+import React, { useEffect } from "react";
 import styles from "./modal-overlay.module.scss";
 
 interface IModalOverlay {
@@ -6,23 +6,17 @@ interface IModalOverlay {
 }
 
 export const ModalOverlay = ({ setIsOpen }: IModalOverlay) => {
-  const escFunction = useCallback(
-    (event: KeyboardEvent<Element>) => {
+  useEffect(() => {
+    const escFunction = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsOpen(false);
       }
-    },
-    [setIsOpen]
-  );
-
-  useEffect(() => {
-    //@ts-ignore
+    };
     document.addEventListener("keydown", escFunction);
     return () => {
-      //@ts-ignore
       document.removeEventListener("keydown", escFunction);
     };
-  }, [escFunction]);
+  }, [setIsOpen]);
 
   return (
     <div
@@ -31,7 +25,6 @@ export const ModalOverlay = ({ setIsOpen }: IModalOverlay) => {
         e.stopPropagation();
         setIsOpen(false);
       }}
-      onKeyDown={escFunction}
       tabIndex={0}
     ></div>
   );
