@@ -58,3 +58,19 @@ export interface IOrderState {
   order: { number: number } | null;
   status: string;
 }
+
+export interface IOrder {
+  ingredients: string[];
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IOrdersState {
+  success: boolean;
+  orders: IOrder[];
+  total: number;
+  totalToday: number;
+}

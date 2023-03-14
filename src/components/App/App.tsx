@@ -29,7 +29,7 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchIngredients());
     dispatch(getUserData());
-  }, [dispatch]);
+  }, []);
 
   const handleModalClose = useCallback(
     (isOpen: boolean) => {
