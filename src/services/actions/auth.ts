@@ -61,7 +61,7 @@ export const loginUser = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
   "auth/logout",
-  async ({ refreshToken }: { refreshToken: string | null }, thunkAPI) => {
+  async ({ refreshToken }: { refreshToken: string | null }) => {
     return request(`${API_URL}/auth/logout`, {
       method: "POST",
       headers: {

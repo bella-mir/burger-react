@@ -10,7 +10,8 @@ export const ProfileMenu = () => {
   const navigate = useNavigate();
   const refreshToken: string | null = localStorage.getItem("refreshToken");
 
-  const handleLogout = () => {
+  const handleLogout = (event: any) => {
+    event.preventDefault();
     dispatch(logoutUser({ refreshToken })).then(() => {
       navigate("/login");
     });

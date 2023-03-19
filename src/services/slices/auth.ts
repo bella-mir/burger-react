@@ -49,7 +49,6 @@ export const authSlice = createSlice({
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       state.user = {};
-      state.status = "success";
       state.errorMessage = "";
     });
     builder.addCase(logoutUser.pending, (state, action) => {
