@@ -1,5 +1,5 @@
 import { Middleware } from "redux";
-import { ordersActions } from "../services/slices/orders";
+import { ordersActions } from "../services/slices/allOrders";
 
 const socketMiddleware: Middleware = (store) => {
   const wsUrl = "wss://norma.nomoreparties.space/orders/all";
@@ -7,12 +7,13 @@ const socketMiddleware: Middleware = (store) => {
   const token = localStorage.getItem("accessToken");
 
   return (next) => (action) => {
-    if (token) {
+    const wsInit = ordersActions.startConnecting.match(action);
+
+    if (token && wsInit) {
       socket = new WebSocket(`${wsUrl}?token=${token}`);
-    } else {
+    } else if (!token && wsInit) {
       socket = new WebSocket(`${wsUrl}`);
     }
-
     if (socket) {
       socket.onopen = (event) => {
         store.dispatch(ordersActions.connectionEstablished());

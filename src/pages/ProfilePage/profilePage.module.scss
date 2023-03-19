@@ -45,3 +45,19 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.list {
+  height: 42vh;
+  overflow: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  .link {
+    text-decoration: none;
+    color: white;
+    .card {
+      width: 844px;
+    }
+  }
+}

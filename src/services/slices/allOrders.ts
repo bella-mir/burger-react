@@ -23,7 +23,7 @@ const ordersSlice = createSlice({
     },
     connectionEstablished: (state) => {
       state.isConnected = true;
-      state.isEstablishingConnection = true;
+      state.isEstablishingConnection = false;
     },
     receiveAllOrders: (state, action: any) => {
       state.orders = action.payload;

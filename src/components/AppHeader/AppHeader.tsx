@@ -23,11 +23,6 @@ export const AppHeader = () => {
     }
   }, [user]);
 
-  //temporary solution to disable some links
-  const handleDisabledClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-  };
-
   return (
     <header className={cn(styles.header, "pl-5 pr-5 pb-5 pt-5")}>
       <nav className={styles.menu}>
@@ -44,16 +39,11 @@ export const AppHeader = () => {
             Конструктор
           </NavLink>
           <NavLink
-            to="/lenta"
-            className={cn(
-              styles.menuElement,
-              styles.navDisabled,
-              "text text_type_main-default"
-            )}
+            to="/feed"
+            className={cn(styles.menuElement, "text text_type_main-default")}
             style={({ isActive }) => ({
               color: isActive ? "#F2F2F3" : "#8585AD",
             })}
-            onClick={handleDisabledClick}
           >
             <ListIcon type="secondary" />
             Лента заказов

@@ -3,7 +3,7 @@ import { ingredientsSlice } from "./slices/ingredients";
 import { orderSlice } from "./slices/order";
 import { authSlice } from "./slices/auth";
 import socketsMiddleware from "../middleware/socket-middleware";
-import ordersSlice from "./slices/orders";
+import ordersSlice from "./slices/allOrders";
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +13,7 @@ export const store = configureStore({
     [ordersSlice.name]: ordersSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(socketsMiddleware),
+    getDefaultMiddleware().prepend(socketsMiddleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

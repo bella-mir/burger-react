@@ -1,14 +1,33 @@
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { getOrders } from "../../services/selectors/allOrders";
+import { OrderCard } from "./components/OrderCrad";
+import { OrderSummary } from "./components/OrderSummary";
 import styles from "./feedPage.module.scss";
 
 export const FeedPage = () => {
+  const location = useLocation();
+  const orders = useSelector(getOrders);
   return (
-    <div className={styles.content}>
-      <p className="text text_type_digits-large">404</p>
-      <p className="text text_type_main-large">Страница не найдена</p>
-      <Link className={styles.link} to={"-1"}>
-        Вернуться
-      </Link>
+    <div className={styles.page}>
+      <p className="text text_type_main-medium">Лента заказов</p>
+      <div className={styles.content}>
+        <div className={styles.list}>
+          {orders?.map((order) => (
+            <Link
+              key={order._id}
+              to={`/feed/${order._id}`}
+              state={{ background: location }}
+              className={styles.link}
+            >
+              <OrderCard order={order} />
+            </Link>
+          ))}
+        </div>
+        <div className={styles.summary}>
+          <OrderSummary orders={orders} />
+        </div>
+      </div>
     </div>
   );
 };

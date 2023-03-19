@@ -1,9 +1,7 @@
-import cn from "classnames";
 import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser, updateUserData } from "../../services/actions/auth";
+import { updateUserData } from "../../services/actions/auth";
 import { useForm } from "../../hooks/use-form";
-import { NavLink, useNavigate } from "react-router-dom";
 import {
   Button,
   Input,
@@ -11,25 +9,13 @@ import {
 import styles from "./profilePage.module.scss";
 import { getUserInfo } from "../../services/selectors/auth";
 import { AppDispatch } from "../../services/store";
+import { ProfileMenu } from "./ProfileMenu";
 
 export const ProfilePage = () => {
   const controlInput = useForm();
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
   const [isEditing, enableEditing] = useState(false);
-  const refreshToken: string | null = localStorage.getItem("refreshToken");
   const user = useSelector(getUserInfo);
-
-  const handleLogout = () => {
-    dispatch(logoutUser({ refreshToken })).then(() => {
-      navigate("/login");
-    });
-  };
-
-  //temporary solution to disable some links
-  const handleDisabledClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-  };
 
   const onCancelClick = useCallback(() => {
     controlInput.resetForm();
@@ -49,39 +35,7 @@ export const ProfilePage = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
-        <div className={styles.menu}>
-          <NavLink
-            to="/profile"
-            className={({ isActive }) =>
-              isActive
-                ? cn(styles.nav, styles.navActive, "text text_type_main-medium")
-                : cn(styles.nav, "text text_type_main-medium")
-            }
-          >
-            Профиль
-          </NavLink>
-          <NavLink
-            className={cn(
-              styles.nav,
-              styles.navDisabled,
-              "text text_type_main-medium"
-            )}
-            to="/profile/orders"
-            onClick={handleDisabledClick}
-          >
-            История заказов
-          </NavLink>
-          <NavLink
-            to=""
-            className={cn(styles.nav, "text text_type_main-medium")}
-            onClick={handleLogout}
-          >
-            Выход
-          </NavLink>
-          <span className={cn("pt-20", styles.comment)}>
-            В этом разделе вы можете изменить свои персональные данные
-          </span>
-        </div>
+        <ProfileMenu />
         <div className={styles.info}>
           <form onSubmit={onSaveClick} className={styles.form}>
             <Input

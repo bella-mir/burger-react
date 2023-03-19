@@ -18,3 +18,13 @@ export const getOrdersToday = createSelector(
   getOrdersState,
   (state) => state.orders?.totalToday
 );
+
+export const getOrders = createSelector(
+  getOrdersState,
+  (state) => state.orders?.orders
+);
+
+export const getIsEstablishingConnection = createSelector(
+  getOrdersState,
+  (state) => state.isEstablishingConnection
+);

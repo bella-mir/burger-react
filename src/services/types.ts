@@ -66,6 +66,7 @@ export interface IOrder {
   number: number;
   createdAt: string;
   updatedAt: string;
+  name: string;
 }
 
 export interface IOrdersState {
