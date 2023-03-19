@@ -22,7 +22,6 @@ export const socketMiddleware = (
 
     return (next) => (action) => {
       const wsInit = wsActions.wsConnecting.match(action);
-      console.log(`${wsUrl}?token=${token}`);
       if (token && wsInit) {
         socket = new WebSocket(`${wsUrl}?token=${token}`);
       } else if (!token && wsInit) {
