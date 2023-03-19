@@ -20,7 +20,6 @@ import { fetchIngredients } from "../../services/slices/ingredients";
 import { getUserData } from "../../services/actions/auth";
 import styles from "./app.module.scss";
 import { AppDispatch } from "../../services/store";
-import { ordersActions } from "../../services/slices/allOrders";
 import { OrderPage } from "../../pages/OrderPage/OrderPage";
 import { OrderDetails } from "../../pages/FeedPage/components/OrderDetails";
 import { ProfileOrders } from "../../pages/ProfilePage/ProfileOrders";
@@ -34,7 +33,6 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchIngredients());
     dispatch(getUserData());
-    dispatch(ordersActions.startConnecting());
   }, [dispatch]);
 
   const handleModalClose = useCallback(

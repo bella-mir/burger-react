@@ -1,10 +1,10 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { ORDERS_STATE_KEY } from "../services-constants";
+import { USER_ORDERS_STATE_KEY } from "../services-constants";
 import { RootState } from "../store";
 
-const getOrdersState = (state: RootState) => state[ORDERS_STATE_KEY];
+const getOrdersState = (state: RootState) => state[USER_ORDERS_STATE_KEY];
 
-export const getAllOrders = createSelector(
+export const getUserOrders = createSelector(
   getOrdersState,
   (state) => state.orders?.orders
 );

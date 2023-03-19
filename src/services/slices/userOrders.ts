@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   connectionClosed,
   connectionEstablished,
-  receiveAllOrders,
+  receiveUserOrders,
   startConnecting,
-} from "../actions/allOrders";
-import { ORDERS_STATE_KEY } from "../services-constants";
+} from "../actions/userOrders";
+import { USER_ORDERS_STATE_KEY } from "../services-constants";
 import { IOrdersState } from "../types";
 
 export interface OrdersState {
@@ -20,8 +20,8 @@ const initialState: OrdersState = {
   orders: undefined,
 };
 
-export const allOrdersSlice = createSlice({
-  name: ORDERS_STATE_KEY,
+export const userOrdersSlice = createSlice({
+  name: USER_ORDERS_STATE_KEY,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -33,7 +33,7 @@ export const allOrdersSlice = createSlice({
       state.isConnected = true;
       state.isEstablishingConnection = false;
     });
-    builder.addCase(receiveAllOrders, (state, action) => {
+    builder.addCase(receiveUserOrders, (state, action) => {
       state.orders = action.payload;
     });
     builder.addCase(connectionClosed, (state) => {

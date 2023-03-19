@@ -20,6 +20,7 @@ export const ProfileMenu = () => {
     <div className={styles.menu}>
       <NavLink
         to="/profile"
+        end
         className={({ isActive }) =>
           isActive
             ? cn(styles.nav, styles.navActive, "text text_type_main-medium")

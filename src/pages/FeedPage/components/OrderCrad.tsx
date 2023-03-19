@@ -7,6 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getAllIngredients } from "../../../services/selectors/ingredients";
 import { useSelector } from "react-redux";
+import { nanoid } from "@reduxjs/toolkit";
 
 type TOrderCardProps = {
   order: IOrder;
@@ -41,7 +42,8 @@ export const OrderCard = ({ order, className }: TOrderCardProps) => {
             <img
               className={styles.image}
               src={ingredient.image}
-              alt={"jj"}
+              alt={"ingredient"}
+              key={nanoid()}
             ></img>
           ))}
         </div>

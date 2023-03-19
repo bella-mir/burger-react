@@ -20,9 +20,11 @@ export const OrderSummary = ({ orders }: TOrderSummaryProps) => {
       <div className={styles.status}>
         <div className={styles.column}>
           <p className="text text_type_main-medium">Готовы:</p>
-          {readyOrders?.slice(0, 5).map((order) => (
+          {readyOrders?.slice(0, 4).map((order) => (
             <>
-              <p className="text text_type_digits-default">{order.number}</p>
+              <p className="text text_type_digits-small" key={order._id}>
+                {order.number}
+              </p>
             </>
           ))}
         </div>
@@ -30,7 +32,9 @@ export const OrderSummary = ({ orders }: TOrderSummaryProps) => {
           <p className="text text_type_main-medium">В работе:</p>
           {inProcessOrders?.map((order) => (
             <>
-              <p className="text text_type_digits-default">{order.number}</p>
+              <p className="text text_type_digits-default" key={order._id}>
+                {order.number}
+              </p>
             </>
           ))}
         </div>

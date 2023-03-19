@@ -47,7 +47,7 @@
 }
 
 .list {
-  height: 42vh;
+  height: calc(100vh - 400px);
   overflow: auto;
   width: 100%;
   display: flex;
