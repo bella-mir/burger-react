@@ -11,6 +11,7 @@ export const orderCheckout = (ingredients: string[]) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
     },
     body: JSON.stringify({
       ingredients: ingredients,
