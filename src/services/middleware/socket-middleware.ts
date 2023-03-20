@@ -18,12 +18,13 @@ export const socketMiddleware = (
 ): Middleware<{}, RootState> => {
   return (store) => {
     let socket: WebSocket | null = null;
-    const token = localStorage.getItem("accessToken")?.replace("Bearer ", "");
 
     return (next) => (action) => {
       const wsInit = wsActions.wsConnecting.match(action);
+      const token = localStorage.getItem("accessToken")?.replace("Bearer ", "");
       if (token && wsInit) {
         socket = new WebSocket(`${wsUrl}?token=${token}`);
+        console.log(`${wsUrl}?token=${token}`);
       } else if (!token && wsInit) {
         socket = new WebSocket(`${wsUrl}`);
       }

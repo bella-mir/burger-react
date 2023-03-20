@@ -28,7 +28,9 @@ export const OrderDetails = () => {
           </p>
         </>
       ) : (
-        <div className="text text_type_main-medium">Загрузка</div>
+        <div className="text text_type_main-medium">
+          Готовим... нужно немного подождать
+        </div>
       )}
     </>
   );

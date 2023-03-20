@@ -14,13 +14,14 @@ import { getUserOrders } from "../../services/selectors/userOrders";
 
 export const ProfileOrders = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
     dispatch(startConnecting());
     return () => {
       dispatch(connectionClosed());
     };
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   const location = useLocation();
   const orders = useSelector(getUserOrders);
