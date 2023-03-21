@@ -7,9 +7,9 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getAllIngredients } from "../../../services/selectors/ingredients";
-import { getOrders } from "../../../services/selectors/allOrders";
 import { IOrder } from "../../../services/types";
 import styles from "./order-details.module.scss";
+import { getOrderDetails } from "../../../utils/api";
 
 interface IIngredientCounts {
   [key: string]: number;
@@ -17,28 +17,29 @@ interface IIngredientCounts {
 
 export const OrderDetails = () => {
   const { orderId } = useParams();
+
   const [order, setOrder] = useState<IOrder | null>(null);
-  const allOrders = useSelector(getOrders);
+
+  useEffect(() => {
+    if (!orderId) {
+      return;
+    }
+    getOrderDetails(orderId).then((data) => setOrder(data.orders[0]));
+  }, [orderId]);
+
   const allIngredients = useSelector(getAllIngredients);
   const ingredientsDetails = allIngredients.filter((ingredient) =>
-    order?.ingredients.includes(ingredient._id)
+    order?.ingredients?.includes(ingredient._id)
   );
 
   const ingredientsCounts: IIngredientCounts = {};
-  order?.ingredients.forEach((id) => {
+  order?.ingredients?.forEach((id) => {
     ingredientsCounts[id] = (ingredientsCounts[id] || 0) + 1;
   });
 
   const orderPrice = ingredientsDetails.reduce((accumulator, element) => {
     return accumulator + element.price * ingredientsCounts[element._id];
   }, 0);
-
-  useEffect(() => {
-    const mainorder = allOrders?.filter((order) => order._id === orderId);
-    if (mainorder) {
-      setOrder(mainorder[0]);
-    }
-  }, [allOrders, orderId]);
 
   if (!order) {
     return null;

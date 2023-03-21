@@ -34,7 +34,7 @@ export const ProfileOrders = () => {
             {orders?.map((order) => (
               <Link
                 key={order._id}
-                to={`/profile/orders/${order._id}`}
+                to={`/profile/orders/${order.number}`}
                 state={{ background: location }}
                 className={styles.link}
               >

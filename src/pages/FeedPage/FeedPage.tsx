@@ -31,7 +31,7 @@ export const FeedPage = () => {
           {orders?.map((order) => (
             <Link
               key={order._id}
-              to={`/feed/${order._id}`}
+              to={`/feed/${order.number}`}
               state={{ background: location }}
               className={styles.link}
             >

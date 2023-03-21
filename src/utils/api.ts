@@ -19,6 +19,15 @@ export const orderCheckout = (ingredients: string[]) => {
   });
 };
 
+export const getOrderDetails = (orderNumber: string) => {
+  return request(`${API_URL}/orders/${orderNumber}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+
 export const resetPassword = (email: string) => {
   return request(`${API_URL}/password-reset`, {
     method: "POST",

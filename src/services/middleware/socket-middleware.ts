@@ -24,7 +24,6 @@ export const socketMiddleware = (
       const token = localStorage.getItem("accessToken")?.replace("Bearer ", "");
       if (token && wsInit) {
         socket = new WebSocket(`${wsUrl}?token=${token}`);
-        console.log(`${wsUrl}?token=${token}`);
       } else if (!token && wsInit) {
         socket = new WebSocket(`${wsUrl}`);
       }
