@@ -8,3 +8,4 @@ export {
 } from "./LoginPage";
 export { ProfilePage } from "./ProfilePage";
 export { NotFoundPage } from "./NotFoundPage";
+export { FeedPage } from "./FeedPage";

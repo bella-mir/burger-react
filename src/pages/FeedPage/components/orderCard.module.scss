@@ -1,0 +1,41 @@
+.card {
+  min-height: 214px;
+  width: 584px;
+  background-color: rgba(28, 28, 33, 1);
+  border-radius: 40px;
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 24px;
+    .images {
+      display: flex;
+      overflow: auto;
+      .image {
+        height: 60px;
+        width: 60px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #4c4cff;
+      }
+    }
+    .price {
+      display: flex;
+      flex-direction: row;
+      gap: 9px;
+    }
+  }
+}

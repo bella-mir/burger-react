@@ -14,11 +14,15 @@ import {
   ResetPasswordPage,
   ProfilePage,
   NotFoundPage,
+  FeedPage,
 } from "../../pages";
 import { fetchIngredients } from "../../services/slices/ingredients";
 import { getUserData } from "../../services/actions/auth";
 import styles from "./app.module.scss";
 import { AppDispatch } from "../../services/store";
+import { OrderPage } from "../../pages/OrderPage/OrderPage";
+import { OrderDetails } from "../../pages/FeedPage/components/OrderDetails";
+import { ProfileOrders } from "../../pages/ProfilePage/ProfileOrders";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -84,6 +88,24 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/profile/orders"
+          element={
+            <ProtectedRoute onlyUnAuth={false}>
+              <ProfileOrders />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile/orders/:orderId"
+          element={
+            <ProtectedRoute onlyUnAuth={false}>
+              <OrderPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/feed" element={<FeedPage />} />
+        <Route path="/feed/:orderId" element={<OrderPage />} />
         <Route path="/ingredients/:ingredientId" element={<IngredientPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
@@ -94,6 +116,22 @@ const App = () => {
             element={
               <Modal header={"Детали ингредиента"} setIsOpen={handleModalClose}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:orderId"
+            element={
+              <Modal header={""} setIsOpen={handleModalClose}>
+                <OrderDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:orderId"
+            element={
+              <Modal header={""} setIsOpen={handleModalClose}>
+                <OrderDetails />
               </Modal>
             }
           />

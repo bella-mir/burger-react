@@ -11,10 +11,20 @@ export const orderCheckout = (ingredients: string[]) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: localStorage.getItem("accessToken"),
     },
     body: JSON.stringify({
       ingredients: ingredients,
     }),
+  });
+};
+
+export const getOrderDetails = (orderNumber: string) => {
+  return request(`${API_URL}/orders/${orderNumber}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 };
 

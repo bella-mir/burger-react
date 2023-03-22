@@ -50,6 +50,10 @@ export const BurgerConstructor = () => {
     }
   }, [selectedIngredients?.bun?.name]);
 
+  const selectedBunsIds = selectedIngredients.bun
+    ? [selectedIngredients.bun._id, selectedIngredients.bun._id]
+    : undefined;
+
   const selectedIngredientsIds =
     selectedIngredients.ingredients &&
     selectedIngredients.ingredients.map(
@@ -73,9 +77,9 @@ export const BurgerConstructor = () => {
   };
 
   const handleClick = () => {
-    if (isAuth && selectedIngredientsIds) {
+    if (isAuth && selectedIngredientsIds && selectedBunsIds) {
       setIsOpen(true);
-      dispatch(postOrder(selectedIngredientsIds));
+      dispatch(postOrder(selectedIngredientsIds.concat(selectedBunsIds)));
       dispatch(deleteAllFromConstructor());
     } else {
       redirectToLogin();
