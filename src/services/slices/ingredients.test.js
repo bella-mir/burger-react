@@ -4,16 +4,7 @@ import {
   deleteFromConstructor,
   deleteAllFromConstructor,
 } from "../actions/ingredients";
-
-import { ingredientsSlice } from "./ingredients";
-
-const initialState = {
-  data: [],
-  status: "",
-  error: "",
-  selectedIngredient: null,
-  ingredientsInConstructor: { bun: null, ingredients: [] },
-};
+import { ingredientsSlice, initialState } from "./ingredients";
 
 const mockedSelectedIngredient = {
   elementId: 666,

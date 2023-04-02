@@ -19,9 +19,8 @@ export const LoginPage = () => {
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(loginUser({ ...controlInput?.values })).then(() => {
-      navigate(location?.state?.from || "/");
-    });
+    dispatch(loginUser({ ...controlInput?.values }));
+    navigate(location?.state?.from || "/");
   };
 
   return (
@@ -30,14 +29,14 @@ export const LoginPage = () => {
       <form onSubmit={handleLogin} className={styles.form}>
         <Input
           onChange={controlInput.handleChange}
-          value={controlInput?.values?.email || ''}
+          value={controlInput?.values?.email || ""}
           name={"email"}
           placeholder="Email"
           extraClass="mb-2"
         />
         <PasswordInput
           onChange={controlInput.handleChange}
-          value={controlInput?.values?.password || ''}
+          value={controlInput?.values?.password || ""}
           name={"password"}
           placeholder="Пароль"
           extraClass="mb-2"

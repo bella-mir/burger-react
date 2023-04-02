@@ -10,7 +10,7 @@ import {
 import { INGREDIENTS_STATE_KEY } from "../services-constants";
 import { IIngredientsState } from "../types";
 
-const initialState: IIngredientsState = {
+export const initialState: IIngredientsState = {
   data: [],
   status: "",
   error: "",

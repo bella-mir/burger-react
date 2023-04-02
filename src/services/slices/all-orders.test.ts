@@ -4,13 +4,7 @@ import {
   connectionClosed,
   receiveAllOrders,
 } from "../actions/allOrders";
-import { allOrdersSlice } from "./all-orders";
-
-const initialState = {
-  isEstablishingConnection: false,
-  isConnected: false,
-  orders: undefined,
-};
+import { allOrdersSlice, initialState } from "./all-orders";
 
 const dataReducer = allOrdersSlice.reducer;
 

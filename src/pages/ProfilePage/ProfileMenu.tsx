@@ -12,9 +12,8 @@ export const ProfileMenu = () => {
 
   const handleLogout = (event: any) => {
     event.preventDefault();
-    dispatch(logoutUser({ refreshToken })).then(() => {
-      navigate("/login");
-    });
+    dispatch(logoutUser({ refreshToken }));
+    navigate("/login");
   };
 
   return (

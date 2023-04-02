@@ -1,15 +1,17 @@
+const getIngredient = 'div[class^="burgerIngredientsGroup_group"] > a';
+const burgerConstructorSection = 'section[class^="burgerConstructor_section"]';
+const ingredientTitle = 'span[class="constructor-element__text"]';
+
 describe("drag-and-drop works correctly", function () {
   before(function () {
     cy.viewport(1655, 1080);
-    cy.visit("http://localhost:3000/burger-react");
+    cy.visit("/burger-react");
   });
 
   it("dnd for a bun works correctly", function () {
     cy.viewport(1655, 1080);
-    cy.get('div[class^="burgerIngredientsGroup_group"] > a')
-      .first()
-      .as("draggedBunIngredient");
-    cy.get('section[class^="burgerConstructor_section"]').as("dropSection");
+    cy.get(getIngredient).first().as("draggedBunIngredient");
+    cy.get(burgerConstructorSection).as("dropSection");
 
     cy.get("@draggedBunIngredient").trigger("dragstart");
     cy.get("@dropSection").trigger("drop");
@@ -23,14 +25,14 @@ describe("drag-and-drop works correctly", function () {
       });
 
     cy.get("@dropSection")
-      .find('span[class="constructor-element__text"]')
+      .find(ingredientTitle)
       .first()
       .invoke("text")
       .then((text) => {
         expect(`${title} (верх)`).to.equal(text);
       });
     cy.get("@dropSection")
-      .find('span[class="constructor-element__text"]')
+      .find(ingredientTitle)
       .last()
       .invoke("text")
       .then((text) => {
@@ -45,11 +47,9 @@ describe("drag-and-drop works correctly", function () {
 
   it("dnd for a constructor works correctly", function () {
     cy.viewport(1655, 1080);
-    cy.visit("http://localhost:3000/burger-react");
-    cy.get('div[class^="burgerIngredientsGroup_group"] > a')
-      .last()
-      .as("draggedMainIngredient");
-    cy.get('section[class^="burgerConstructor_section"]').as("dropSection");
+    cy.visit("/burger-react");
+    cy.get(getIngredient).last().as("draggedMainIngredient");
+    cy.get(burgerConstructorSection).as("dropSection");
 
     cy.get("@draggedMainIngredient").trigger("dragstart");
     cy.get("@dropSection").trigger("drop");
@@ -63,7 +63,7 @@ describe("drag-and-drop works correctly", function () {
       });
 
     cy.get("@dropSection")
-      .find('span[class="constructor-element__text"]')
+      .find(ingredientTitle)
       .first()
       .invoke("text")
       .then((text) => {
@@ -71,14 +71,14 @@ describe("drag-and-drop works correctly", function () {
       });
     cy.get("@dropSection")
       .find('div[class^="burgerConstructor_inner"]')
-      .find('span[class="constructor-element__text"]')
+      .find(ingredientTitle)
       .first()
       .invoke("text")
       .then((text) => {
         expect(title).to.equal(text);
       });
     cy.get("@dropSection")
-      .find('span[class="constructor-element__text"]')
+      .find(ingredientTitle)
       .last()
       .invoke("text")
       .then((text) => {
@@ -92,12 +92,10 @@ describe("drag-and-drop works correctly", function () {
 
   it("dnd for one ingredient added several times works correctly", function () {
     cy.viewport(1655, 1080);
-    cy.visit("http://localhost:3000/burger-react");
-    cy.get('div[class^="burgerIngredientsGroup_group"] > a')
-      .last()
-      .as("draggedMainIngredient");
+    cy.visit("/burger-react");
+    cy.get(getIngredient).last().as("draggedMainIngredient");
 
-    cy.get('section[class^="burgerConstructor_section"]').as("dropSection");
+    cy.get(burgerConstructorSection).as("dropSection");
 
     cy.get("@draggedMainIngredient").trigger("dragstart");
     cy.get("@dropSection").trigger("drop");

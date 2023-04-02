@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useAppSelector as useSelector } from "../../app/hooks";
 import { getAllIngredients } from "../../services/selectors/ingredients";
 import cn from "classnames";
 import styles from "./ingredient-details.module.scss";

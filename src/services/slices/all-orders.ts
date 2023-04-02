@@ -14,7 +14,7 @@ export interface OrdersState {
   orders: IOrdersState | undefined;
 }
 
-const initialState: OrdersState = {
+export const initialState: OrdersState = {
   isEstablishingConnection: false,
   isConnected: false,
   orders: undefined,

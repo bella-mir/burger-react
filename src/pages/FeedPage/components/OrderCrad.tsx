@@ -6,7 +6,7 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getAllIngredients } from "../../../services/selectors/ingredients";
-import { useSelector } from "react-redux";
+import { useAppSelector as useSelector } from "../../../app/hooks";
 import { nanoid } from "@reduxjs/toolkit";
 
 type TOrderCardProps = {
@@ -20,7 +20,11 @@ export const OrderCard = ({ order, className }: TOrderCardProps) => {
   const ingredientsInfo = allIngredients
     .filter((ingredient) => orderIngredients.includes(ingredient._id))
     .map((ingredient) => {
-      return { image: ingredient.image_mobile, price: ingredient.price };
+      return {
+        image: ingredient.image_mobile,
+        price: ingredient.price,
+        id: nanoid(),
+      };
     });
 
   const orderPrice = ingredientsInfo.reduce((accumulator, element) => {
@@ -28,7 +32,7 @@ export const OrderCard = ({ order, className }: TOrderCardProps) => {
   }, 0);
 
   return (
-    <div className={cn(styles.card, className)}>
+    <div className={cn(styles.card, className)} key={order._id}>
       <div className={styles.head}>
         <p className="text text_type_main-default">#{order.number}</p>
         <p className="text text_type_main-default text_color_inactive">
@@ -43,7 +47,7 @@ export const OrderCard = ({ order, className }: TOrderCardProps) => {
               className={styles.image}
               src={ingredient.image}
               alt={"ingredient"}
-              key={nanoid()}
+              key={ingredient.id}
             ></img>
           ))}
         </div>

@@ -1,11 +1,12 @@
 import styles from "./profilePage.module.scss";
-
 import { ProfileMenu } from "./ProfileMenu";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  useAppDispatch as useDispatch,
+  useAppSelector as useSelector,
+} from "../../app/hooks";
 import { Link, useLocation } from "react-router-dom";
 import { OrderCard } from "../FeedPage/components/OrderCrad";
 import { useEffect } from "react";
-import { AppDispatch } from "../../services/store";
 import {
   connectionClosed,
   startConnecting,
@@ -13,7 +14,7 @@ import {
 import { getUserOrders } from "../../services/selectors/userOrders";
 
 export const ProfileOrders = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export const ProfileOrders = () => {
   const location = useLocation();
   const orders = useSelector(getUserOrders);
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} key={orders?.length}>
       <div className={styles.content}>
         <ProfileMenu />
         <div className={styles.info}>

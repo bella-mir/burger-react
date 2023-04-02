@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useAppSelector as useSelector } from "../../../app/hooks";
 import {
   getOrdersToday,
   getOrdersTotal,
@@ -32,7 +32,7 @@ export const OrderSummary = ({ orders }: TOrderSummaryProps) => {
           <p className="text text_type_main-medium">В работе:</p>
           {inProcessOrders?.map((order) => (
             <>
-              <p className="text text_type_digits-default" key={order._id}>
+              <p className="text text_type_digits-default" key={order.number}>
                 {order.number}
               </p>
             </>

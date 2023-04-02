@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector as useSelector } from "../../app/hooks";
 import styles from "./order-details.module.scss";
 import cn from "classnames";
 import { getOrderNumber, getOrderStatus } from "../../services/selectors/order";
