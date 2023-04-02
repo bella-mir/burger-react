@@ -43,7 +43,12 @@ export const BurgerIngredients = () => {
         : tab === "sauce"
         ? refSauces.current
         : refMain.current;
-    if (element) element.scrollIntoView({ behavior: "smooth" });
+    if (element)
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
   };
 
   useEffect(() => {
