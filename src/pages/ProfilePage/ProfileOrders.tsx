@@ -27,7 +27,7 @@ export const ProfileOrders = () => {
   const location = useLocation();
   const orders = useSelector(getUserOrders);
   return (
-    <div className={styles.wrapper} key={orders?.length}>
+    <div className={styles.wrapper}>
       <div className={styles.content}>
         <ProfileMenu />
         <div className={styles.info}>
