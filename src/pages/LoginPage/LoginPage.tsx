@@ -1,6 +1,6 @@
 import cn from "classnames";
 import { useForm } from "../../hooks/use-form";
-import { useDispatch } from "react-redux";
+import { useAppDispatch as useDispatch } from "../../app/hooks";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../../services/actions/auth";
 import {
@@ -9,11 +9,10 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./loginPage.module.scss";
-import { AppDispatch } from "../../services/store";
 
 export const LoginPage = () => {
   const controlInput = useForm();
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 

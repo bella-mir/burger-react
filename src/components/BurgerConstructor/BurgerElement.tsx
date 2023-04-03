@@ -4,7 +4,7 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrop, useDrag } from "react-dnd";
-import { useDispatch } from "react-redux";
+import { useAppDispatch as useDispatch } from "../../app/hooks";
 import cn from "classnames";
 import styles from "./burgerConstructor.module.scss";
 import {
@@ -12,7 +12,6 @@ import {
   reorderIngredients,
 } from "../../services/actions/ingredients";
 import { IConstructorProps } from "../../services/types";
-import { AppDispatch } from "../../services/store";
 
 interface IBurgerElementProps {
   index: number;
@@ -20,7 +19,7 @@ interface IBurgerElementProps {
 }
 
 export const BurgerElement = ({ index, element }: IBurgerElementProps) => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const id = element.elementId;
 
   const divRef = useRef<HTMLDivElement>(null);

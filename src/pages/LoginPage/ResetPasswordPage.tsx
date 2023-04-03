@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch as useDispatch } from "../../app/hooks";
 import { useForm } from "../../hooks/use-form";
 import cn from "classnames";
 import { Link, useLocation, Navigate } from "react-router-dom";
@@ -8,11 +8,10 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./loginPage.module.scss";
-import { AppDispatch } from "../../services/store";
 import { updatePassword } from "../../services/actions/auth";
 
 export const ResetPasswordPage = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const controlInput = useForm();
   const location = useLocation();
 

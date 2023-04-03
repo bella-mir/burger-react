@@ -1,5 +1,5 @@
 import { useForm } from "../../hooks/use-form";
-import { useDispatch } from "react-redux";
+import { useAppDispatch as useDispatch } from "../../app/hooks";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import cn from "classnames";
 import { signupUser } from "../../services/actions/auth";
@@ -9,10 +9,9 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./loginPage.module.scss";
-import { AppDispatch } from "../../services/store";
 
 export const SignUpPage = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const controlInput = useForm();

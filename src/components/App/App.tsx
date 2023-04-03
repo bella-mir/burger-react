@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useAppDispatch as useDispatch } from "../../app/hooks";
 import { Modal } from "../Modal/Modal";
 import { AppHeader } from "../AppHeader";
 import { ProtectedRoute } from "../ProtectedRoute";
@@ -19,13 +19,12 @@ import {
 import { fetchIngredients } from "../../services/slices/ingredients";
 import { getUserData } from "../../services/actions/auth";
 import styles from "./app.module.scss";
-import { AppDispatch } from "../../services/store";
 import { OrderPage } from "../../pages/OrderPage/OrderPage";
 import { OrderDetails } from "../../pages/FeedPage/components/OrderDetails";
 import { ProfileOrders } from "../../pages/ProfilePage/ProfileOrders";
 
 const App = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
