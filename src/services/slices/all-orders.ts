@@ -14,7 +14,7 @@ export interface OrdersState {
   orders: IOrdersState | undefined;
 }
 
-const initialState: OrdersState = {
+export const initialState: OrdersState = {
   isEstablishingConnection: false,
   isConnected: false,
   orders: undefined,
@@ -28,7 +28,6 @@ export const allOrdersSlice = createSlice({
     builder.addCase(startConnecting, (state) => {
       state.isEstablishingConnection = true;
     });
-
     builder.addCase(connectionEstablished, (state) => {
       state.isConnected = true;
       state.isEstablishingConnection = false;

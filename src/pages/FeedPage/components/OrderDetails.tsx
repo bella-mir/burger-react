@@ -4,7 +4,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector as useSelector } from "../../../app/hooks";
 import { useParams } from "react-router-dom";
 import { getAllIngredients } from "../../../services/selectors/ingredients";
 import { IOrder } from "../../../services/types";
@@ -46,7 +46,7 @@ export const OrderDetails = () => {
   }
 
   return (
-    <div className={styles.content}>
+    <div className={styles.content} key={order._id}>
       <p className={cn("text text_type_digits-default", styles.orderNumber)}>
         #{order.number}
       </p>
@@ -58,7 +58,7 @@ export const OrderDetails = () => {
         <p className="text text_type_main-medium">Состав:</p>
         <div className={styles.ingredients}>
           {ingredientsDetails.map((ingredient) => (
-            <div className={styles.ingredientInfo}>
+            <div className={styles.ingredientInfo} key={ingredient._id}>
               <div className={styles.ingredientDetail}>
                 <img
                   src={ingredient.image_mobile}

@@ -2,7 +2,7 @@
   "name": "react-burger",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bella-mir.github.io/burger-react", 
+  "homepage": "https://bella-mir.github.io/burger-react",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
@@ -24,7 +24,9 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
+    "react-test-renderer": "^18.2.0",
     "redux": "^4.2.0",
+    "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.4.2",
     "sass": "^1.58.3",
     "socket.io-client": "^4.6.1",
@@ -37,7 +39,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "cypress": "npx cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^12.9.0",
     "gh-pages": "^5.0.0"
   }
 }

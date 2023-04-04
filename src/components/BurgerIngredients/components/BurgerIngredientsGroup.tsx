@@ -1,9 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch as useDispatch } from "../../../app/hooks";
 import { Link, useLocation } from "react-router-dom";
 import { BurgerIngredient } from "./BurgerIngredient";
 import styles from "./burgerIngredientsGroup.module.scss";
-import { AppDispatch } from "../../../services/store";
 import { IIngredientProp } from "../../../services/types";
 import { selectIngredient } from "../../../services/actions/ingredients";
 
@@ -16,7 +15,7 @@ export const BurgerIngredientsGroup = ({
   title,
   data,
 }: IBurgerIngredientsProps) => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const location = useLocation();
 
   return (

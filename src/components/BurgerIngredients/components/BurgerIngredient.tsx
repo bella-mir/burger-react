@@ -4,7 +4,7 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
-import { useSelector } from "react-redux";
+import { useAppSelector as useSelector } from "../../../app/hooks";
 import { getCountIngredients } from "../../../services/selectors/ingredients";
 import cn from "classnames";
 import styles from "./burgerIngerdient.module.scss";

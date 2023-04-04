@@ -3,7 +3,7 @@ import { ingredientsSlice } from "./slices/ingredients";
 import { orderSlice } from "./slices/order";
 import { authSlice } from "./slices/auth";
 import { socketMiddleware } from "./middleware/socket-middleware";
-import { allOrdersSlice } from "./slices/allOrders";
+import { allOrdersSlice } from "./slices/all-orders";
 import {
   startConnecting as allOrdersWsConnecting,
   connectionEstablished as allOrdersWsConnect,
@@ -16,7 +16,7 @@ import {
   receiveUserOrders as userOrdersWsMessage,
   connectionClosed as userOrdersWsClose,
 } from "./actions/userOrders";
-import { userOrdersSlice } from "./slices/userOrders";
+import { userOrdersSlice } from "./slices/user-orders";
 
 const wsUrl = "wss://norma.nomoreparties.space/orders/all";
 const wsUrlUser = "wss://norma.nomoreparties.space/orders";

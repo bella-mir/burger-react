@@ -1,18 +1,20 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  useAppSelector as useSelector,
+  useAppDispatch as useDispatch,
+} from "../../app/hooks";
 import { Link, useLocation } from "react-router-dom";
 import {
   connectionClosed,
   startConnecting,
 } from "../../services/actions/allOrders";
 import { getOrders } from "../../services/selectors/allOrders";
-import { AppDispatch } from "../../services/store";
 import { OrderCard } from "./components/OrderCrad";
 import { OrderSummary } from "./components/OrderSummary";
 import styles from "./feedPage.module.scss";
 
 export const FeedPage = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(startConnecting());
@@ -30,12 +32,12 @@ export const FeedPage = () => {
         <div className={styles.list}>
           {orders?.map((order) => (
             <Link
-              key={order._id}
+              key={order.number}
               to={`/feed/${order.number}`}
               state={{ background: location }}
               className={styles.link}
             >
-              <OrderCard order={order} />
+              <OrderCard order={order} key={order._id} />
             </Link>
           ))}
         </div>

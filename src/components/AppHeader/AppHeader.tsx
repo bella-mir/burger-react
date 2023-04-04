@@ -6,7 +6,7 @@ import {
   ProfileIcon,
   Logo,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useAppSelector as useSelector } from "../../app/hooks";
 import cn from "classnames";
 import { getUserInfo } from "../../services/selectors/auth";
 import styles from "./appHeader.module.scss";

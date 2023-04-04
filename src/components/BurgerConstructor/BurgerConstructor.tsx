@@ -6,11 +6,11 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
+import { useAppDispatch as useDispatch } from "../../app/hooks";
 import { Modal } from "../Modal/Modal";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
 import cn from "classnames";
-import { useSelector } from "react-redux";
+import { useAppSelector as useSelector } from "../../app/hooks";
 import {
   addToConstructor,
   deleteAllFromConstructor,
@@ -22,11 +22,10 @@ import { nanoid } from "@reduxjs/toolkit";
 import { BurgerElement } from "./BurgerElement";
 import { getUserInfo } from "../../services/selectors/auth";
 import { IIngredientProp } from "../../services/types";
-import { AppDispatch } from "../../services/store";
 import styles from "./burgerConstructor.module.scss";
 
 export const BurgerConstructor = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const user = useSelector(getUserInfo);
   const navigate = useNavigate();
   const isAuth = Boolean(user?.name);

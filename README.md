@@ -6,7 +6,7 @@
 
 **Description**
 
-"Stellar Burger" is a prototype of an online-store, whrere a user can register, authorize, create orders and view the orders history. The API developed by Yandex team was used to connect to backend, where info about users and orders is stored (server of Yandex). Some pages are protected by authorization, data transfer from the API goes through a secure connection with request validation.
+"Stellar Burger" is a prototype of an online-store, where a user can register, authorize, create orders and view orders history. The API developed by Yandex team was used to connect to backend, where info about users and orders is stored (server of Yandex). Some pages are protected by authorization, data transfer from the API goes through a secure connection with a request validation.
 
 ### Installation
 

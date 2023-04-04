@@ -1,5 +1,8 @@
 import { useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  useAppDispatch as useDispatch,
+  useAppSelector as useSelector,
+} from "../../app/hooks";
 import { updateUserData } from "../../services/actions/auth";
 import { useForm } from "../../hooks/use-form";
 import {
@@ -8,12 +11,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profilePage.module.scss";
 import { getUserInfo } from "../../services/selectors/auth";
-import { AppDispatch } from "../../services/store";
 import { ProfileMenu } from "./ProfileMenu";
 
 export const ProfilePage = () => {
   const controlInput = useForm();
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const [isEditing, enableEditing] = useState(false);
   const user = useSelector(getUserInfo);
 

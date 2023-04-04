@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useAppSelector as useSelector } from "../../app/hooks";
 import { getUserInfo } from "../../services/selectors/auth";
 
 interface IProtectedRouteProps extends PropsWithChildren {

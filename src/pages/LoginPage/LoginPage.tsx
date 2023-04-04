@@ -1,6 +1,6 @@
 import cn from "classnames";
 import { useForm } from "../../hooks/use-form";
-import { useDispatch } from "react-redux";
+import { useAppDispatch as useDispatch } from "../../app/hooks";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../../services/actions/auth";
 import {
@@ -9,19 +9,17 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./loginPage.module.scss";
-import { AppDispatch } from "../../services/store";
 
 export const LoginPage = () => {
   const controlInput = useForm();
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(loginUser({ ...controlInput?.values })).then(() => {
-      navigate(location?.state?.from || "/");
-    });
+    dispatch(loginUser({ ...controlInput?.values }));
+    navigate(location?.state?.from || "/");
   };
 
   return (
@@ -30,14 +28,14 @@ export const LoginPage = () => {
       <form onSubmit={handleLogin} className={styles.form}>
         <Input
           onChange={controlInput.handleChange}
-          value={controlInput?.values?.email || ''}
+          value={controlInput?.values?.email || ""}
           name={"email"}
           placeholder="Email"
           extraClass="mb-2"
         />
         <PasswordInput
           onChange={controlInput.handleChange}
-          value={controlInput?.values?.password || ''}
+          value={controlInput?.values?.password || ""}
           name={"password"}
           placeholder="Пароль"
           extraClass="mb-2"

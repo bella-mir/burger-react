@@ -2,7 +2,7 @@ import React from "react";
 import cn from "classnames";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useSelector } from "react-redux";
+import { useAppSelector as useSelector } from "../../app/hooks";
 import { BurgerConstructor } from "../../components/BurgerConstructor/BurgerConstructor";
 import { BurgerIngredients } from "../../components/BurgerIngredients/BurgerIngredients";
 import { getStatus } from "../../services/selectors/ingredients";

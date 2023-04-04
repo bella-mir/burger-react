@@ -38,6 +38,7 @@ export const authSlice = createSlice({
       localStorage.setItem("refreshToken", action.payload.refreshToken);
       state.user = action.payload.user;
       state.status = "success";
+      state.errorMessage = "";
     });
     builder.addCase(loginUser.pending, (state, action) => {
       state.status = "pending";
